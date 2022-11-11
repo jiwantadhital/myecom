@@ -1,3 +1,6 @@
+import 'package:ecommerce/presentation/main_pages/authentication_pages/login_page.dart';
+import 'package:ecommerce/presentation/main_pages/authentication_pages/profile_fill.dart';
+import 'package:ecommerce/presentation/main_pages/authentication_pages/register_page.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/social_login.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +29,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SocialLogin();
+    return ProfileFill();
   }
 }

@@ -1,4 +1,7 @@
 import 'package:ecommerce/presentation/resources/colors.dart';
+import 'package:ecommerce/presentation/resources/fonts.dart';
+import 'package:ecommerce/presentation/resources/values.dart';
+import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,9 +15,98 @@ class SocialLogin extends StatelessWidget {
       backgroundColor: ColorManager.backgroundColor,
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.all(AppMargin.m10),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                TopSection(),
+                Container(
+                  height: MediaQuery.of(context).size.height*0.30,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/images/front.png"
+                      )
+                    )
+                  ),
+                ),
+                SizedBox(height: 10,),
+                BigText(text: "Let's you in",),
+                SizedBox(height: AppHeight.h10,),
+                SocialBox(icon: "assets/images/face.png",text: "Continue with Facebook",),
+                SizedBox(height: AppSize.s10,),
+                SocialBox(icon: "assets/images/goog.png",text: "Continue with Google",),
+                SizedBox(height: AppSize.s10,),
+                SocialBox(icon: "assets/images/appl.png",text: "Continue with Apple",),
+                SizedBox(height: AppHeight.h20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: MediaQuery.of(context).size.width*0.43,
+                      child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
+                    SmallText(text: "or"),
+                    SizedBox(width: MediaQuery.of(context).size.width*0.43,
+                      child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
+                  ],
+                ),
+                SizedBox(height: AppHeight.h10,),
+                AuthenticationWidget(text: "Sign in with password",),
+                SizedBox(height: AppHeight.h10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SmallText(text: "Don't have an account?"),
+                    SizedBox(width: AppWidth.w10,),
+                    SmallText(text: "Click here",size: AppSize.s14,color: Colors.blue,),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
+
+class SocialBox extends StatelessWidget {
+String text;
+String icon;
+SocialBox({required this.icon, required this.text});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: AppHeight.h60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(width: 1, color: ColorManager.boxBorder,),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width*0.08,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(icon),
+              ),
+            ),
+          ),
+          SizedBox(width: AppWidth.w20,),
+          Text(text,
+          style: TextStyle(
+            fontSize: AppSize.s16,
+            fontWeight: FontWeightManager.semibold,
+            fontFamily: FontConstants.fontFamily,
+            color: ColorManager.white
+          ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
