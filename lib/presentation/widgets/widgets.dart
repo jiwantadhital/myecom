@@ -15,9 +15,9 @@ TopSection({this.text});
       height: MediaQuery.of(context).size.height*0.06,
       child: Row(
         children: [
-          Icon(Icons.arrow_back_rounded, color: ColorManager.white,),
+          Icon(Icons.arrow_back_rounded, color: ColorManager.boxText,),
           SizedBox(width: AppWidth.w20,),
-          MediumText(text: text),
+          MediumText(text: text,),
         ],
       ),
     );
@@ -25,12 +25,14 @@ TopSection({this.text});
 }
 
 class MediumText extends StatelessWidget {
-  const MediumText({
+   MediumText({
     Key? key,
     required this.text,
+    this.colors = Colors.black,
   }) : super(key: key);
 
   final String? text;
+  Color colors;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class MediumText extends StatelessWidget {
     style: TextStyle(
       fontSize: FontSize.s22,
       fontWeight: FontWeightManager.medium,
-      color: ColorManager.white
+      color: colors
     ),
     );
   }
@@ -48,7 +50,8 @@ class BigText extends StatelessWidget {
 String text;
 double size;
 FontWeight weight;
-BigText({required this.text, this.size = FontSize.s36, this.weight=FontWeightManager.bold});
+Color colors;
+BigText({required this.text, this.size = FontSize.s36, this.weight=FontWeightManager.bold, this.colors = Colors.white});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,7 @@ BigText({required this.text, this.size = FontSize.s36, this.weight=FontWeightMan
       fontSize: size,
       fontWeight: weight,
       fontFamily: FontConstants.fontFamily,
-      color: ColorManager.white
+      color: colors
     ),
     );
   }
@@ -67,11 +70,14 @@ String text;
 double size;
 FontWeight weight;
 Color color;
-SmallText({required this.text, this.size = FontSize.s16, this.weight=FontWeightManager.medium, this.color= Colors.white});
+int lines;
+SmallText({required this.text, this.size = FontSize.s16, this.weight=FontWeightManager.medium, this.color= Colors.white, this.lines = 1});
 
   @override
   Widget build(BuildContext context) {
     return Text(text,
+    overflow: TextOverflow.clip,
+    maxLines: lines,
     style: TextStyle(
       fontSize: size,
       fontWeight: weight,
@@ -87,13 +93,14 @@ class AuthenticationWidget extends StatelessWidget {
  Color color;
  Color textColor;
  String text;
- AuthenticationWidget({required this.text, this.color=Colors.white, this.textColor=Colors.black});
+ double width;
+ AuthenticationWidget({required this.text, this.color=Colors.white, this.textColor=Colors.black, this.width=double.maxFinite});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: AppHeight.h60,
-      width: double.maxFinite,
+      width: width,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(20),
@@ -110,38 +117,72 @@ class TextFieldHelp extends StatelessWidget {
   String hintText;
   IconData icon;
   IconData? backIcon;
+  bool hide = false;
   TextEditingController? controller;
-  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon});
+  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon, this.hide=false});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: hide,
       controller: controller,
-      style: TextStyle(color: ColorManager.white),
+      style: TextStyle(color: ColorManager.boxText),
       cursorColor: ColorManager.white,
     decoration: InputDecoration(
       filled: true,
-      suffixIcon: Icon(backIcon, color: ColorManager.white,),
+      suffixIcon: Icon(backIcon, color: ColorManager.boxText,),
       hoverColor: ColorManager.white,
-      fillColor: ColorManager.textFieldColor,
-      prefixIcon: Icon(icon,color: ColorManager.white,), 
+      fillColor: ColorManager.textFieldColor.withOpacity(0.2),
+      prefixIcon: Icon(icon,color: ColorManager.boxText,), 
      hintText: hintText,
       hintStyle: TextStyle(
-        color: ColorManager.white
+        color: ColorManager.boxText.withOpacity(0.5),
       ),
       border: InputBorder.none,
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(          
-          width: 1,color: ColorManager.backgroundColor,
+          width: 1,color: ColorManager.boxBorder,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           width: 1,
-          color: ColorManager.white,
+          color: ColorManager.boxBorderGrey,
         )
       )
     ),
+    );
+  }
+}
+
+
+//birth date
+class BirthDate extends StatelessWidget {
+  const BirthDate({
+    super.key,
+    required this.selectedDate,
+  });
+
+  final DateTime selectedDate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: AppHeight.h60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: ColorManager.textFieldColor.withOpacity(0.2),
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: AppPadding.p12),
+            child: Icon(Icons.calendar_month_outlined, color: ColorManager.boxText,size: AppSize.s28,),
+          ),
+          SizedBox(width: AppWidth.w10,),
+          SmallText(text: "${selectedDate.year.toString()}-${selectedDate.month.toString()}-${selectedDate.day.toString()}", color: ColorManager.boxText.withOpacity(0.5),)
+        ],
+      ),
     );
   }
 }

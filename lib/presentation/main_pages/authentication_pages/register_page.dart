@@ -28,11 +28,11 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               children: [
                 TopSection(),
-                BigText(text: "Register"),
+                BigText(text: "Register", colors: ColorManager.boxText,),
                 SizedBox(height: AppHeight.h30,),
                 TextFieldHelp(hintText: "Email",icon: Icons.email,),
                 SizedBox(height: AppHeight.h20,),
-                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,),
+                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,),
                 SizedBox(height: AppHeight.h15,),
                  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,29 +40,29 @@ class _RegisterPageState extends State<RegisterPage> {
                     Checkbox(
                       checkColor: ColorManager.backgroundColor,
                       activeColor: ColorManager.white,
-                      fillColor: MaterialStateProperty.all<Color>(Colors.white),
+                      fillColor: MaterialStateProperty.all<Color>(Colors.black),
                       value: ourValue,
                        onChanged: (val){
                         setState(() {
                          ourValue==false?ourValue=true:ourValue=false;
                         });
                        }),
-                       SmallText(text: "Remember me", weight: FontWeightManager.medium,)
+                       SmallText(text: "Remember me", weight: FontWeightManager.medium,color: ColorManager.boxText,)
                   ],
                 ),
                 SizedBox(height: AppHeight.h20,),
                 AuthenticationWidget(text: "Sign Up", color: ColorManager.boxBorderGrey,textColor: ColorManager.white,),
                SizedBox(height: AppHeight.h20,),
-               SmallText(text: "Forgot PassWord ?", size: AppSize.s14,),
+               SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
                SizedBox(height: AppHeight.h30,),
                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(width: MediaQuery.of(context).size.width*0.29,
-                        child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
-                      SmallText(text: "or continue with"),
+                        child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
+                      SmallText(text: "or continue with", color: ColorManager.boxText,),
                       SizedBox(width: MediaQuery.of(context).size.width*0.29,
-                        child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
+                        child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
                     ],
                   ),
                   SizedBox(height: AppHeight.h30,),
@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SmallText(text: "Already have an account? "),
+                      SmallText(text: "Already have an account? ", color: ColorManager.boxText,),
                       SmallText(text: "Sign In", color: Colors.blue,),
                     ],
                   ),
@@ -101,7 +101,7 @@ SignWith({required this.image});
       width: AppWidth.w80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: ColorManager.white.withOpacity(0.2)),
+        border: Border.all(color: ColorManager.boxBorderGrey),
       ),
       child: Image.asset(image,scale: 3.5,),
     );

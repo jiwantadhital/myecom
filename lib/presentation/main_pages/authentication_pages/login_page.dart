@@ -14,6 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   bool ourValue = false;
 
   @override
@@ -28,41 +30,41 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 TopSection(),
-                BigText(text: "Login"),
+                BigText(text: "Login", colors: ColorManager.boxText,),
                 SizedBox(height: AppHeight.h30,),
-                TextFieldHelp(hintText: "Email",icon: Icons.email,),
+                TextFieldHelp(hintText: "Email",icon: Icons.email,hide:false,controller: emailController,),
                 SizedBox(height: AppHeight.h20,),
-                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,),
-                SizedBox(height: AppHeight.h15,),
+                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,),
+                SizedBox(height: AppHeight.h20,),
                  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
                       checkColor: ColorManager.backgroundColor,
                       activeColor: ColorManager.white,
-                      fillColor: MaterialStateProperty.all<Color>(Colors.white),
+                      fillColor: MaterialStateProperty.all<Color>(Colors.black),
                       value: ourValue,
                        onChanged: (val){
                         setState(() {
                          ourValue==false?ourValue=true:ourValue=false;
                         });
                        }),
-                       SmallText(text: "Remember me", weight: FontWeightManager.medium,)
+                       SmallText(text: "Remember me", weight: FontWeightManager.medium,color: ColorManager.boxText,)
                   ],
                 ),
                 SizedBox(height: AppHeight.h20,),
-                AuthenticationWidget(text: "Sign in", color: ColorManager.boxBorderGrey,textColor: ColorManager.white,),
+                passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color: ColorManager.boxBorderGrey,  textColor: ColorManager.white,):AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,),
                SizedBox(height: AppHeight.h20,),
-               SmallText(text: "Forgot PassWord ?", size: AppSize.s14,),
+               SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
                SizedBox(height: AppHeight.h30,),
                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(width: MediaQuery.of(context).size.width*0.29,
-                        child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
-                      SmallText(text: "or continue with"),
-                      SizedBox(width: MediaQuery.of(context).size.width*0.29,
-                        child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
+                      SizedBox(width: MediaQuery.of(context).size.width*0.28,
+                        child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
+                      SmallText(text: "or continue with", color: ColorManager.boxText,),
+                      SizedBox(width: MediaQuery.of(context).size.width*0.28,
+                        child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
                     ],
                   ),
                   SizedBox(height: AppHeight.h30,),
@@ -78,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SmallText(text: "Don't have an account? "),
+                      SmallText(text: "Don't have an account? ", color: ColorManager.boxText,),
                       SmallText(text: "Sign Up", color: Colors.blue,),
                     ],
                   ),
@@ -101,7 +103,7 @@ SignWith({required this.image});
       width: AppWidth.w80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: ColorManager.white.withOpacity(0.2)),
+        border: Border.all(color: ColorManager.boxBorderGrey),
       ),
       child: Image.asset(image,scale: 3.5,),
     );

@@ -13,6 +13,8 @@ class ProfileFill extends StatefulWidget {
 }
 
 class _ProfileFillState extends State<ProfileFill> {
+  DateTime selectedDate = DateTime.now();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class _ProfileFillState extends State<ProfileFill> {
                 TopSection(text: "Fill Your Profile",),
                 SizedBox(height: AppHeight.h10,),
                 Container(
-                  height: MediaQuery.of(context).size.height*0.3,                
+                  height: MediaQuery.of(context).size.height*0.26,                
                   child: Stack(
                     children: [
                       Container(
@@ -39,16 +41,16 @@ class _ProfileFillState extends State<ProfileFill> {
                   ),
                         child: Icon(Icons.person,color: ColorManager.backgroundColor.withOpacity(0.3),size: IconSize.i150,)),
                         Positioned(
-                          top: MediaQuery.of(context).size.height*0.18,
-                          left: MediaQuery.of(context).size.width*0.25,
+                          top: MediaQuery.of(context).size.height*0.15,
+                          left: MediaQuery.of(context).size.width*0.23,
                           child: Container(
                             height: AppHeight.h30,
                             width: AppWidth.w30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: ColorManager.white,
+                              color: ColorManager.boxBorderGrey,
                             ),
-                            child: Icon(Icons.edit_rounded),
+                            child: Icon(Icons.edit_rounded, color: ColorManager.white,),
                           ),),
                     ],
                   ),
@@ -59,7 +61,12 @@ class _ProfileFillState extends State<ProfileFill> {
                 SizedBox(height: AppHeight.h10,),
                 TextFieldHelp(icon: Icons.email, hintText: "Email"),
                 SizedBox(height: AppHeight.h10,),
-                TextFieldHelp(icon: Icons.edit_calendar_rounded, hintText: "Date of birth"),
+                GestureDetector(
+                  onTap: (){
+                    _selectDate(context);
+                  },
+                  child: BirthDate(selectedDate: selectedDate),
+                ),
                 SizedBox(height: AppHeight.h10,),
                 TextFieldHelp(icon: Icons.phone, hintText: "Phone Number"),
                 SizedBox(height: AppHeight.h10,),
@@ -73,4 +80,17 @@ class _ProfileFillState extends State<ProfileFill> {
         ),
     );
   }
+      Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1950, 8),
+        lastDate: DateTime(2030));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
 }
+

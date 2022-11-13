@@ -22,7 +22,7 @@ class SocialLogin extends StatelessWidget {
               children: [
                 TopSection(),
                 Container(
-                  height: MediaQuery.of(context).size.height*0.30,
+                  height: MediaQuery.of(context).size.height*0.25,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
@@ -32,7 +32,7 @@ class SocialLogin extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10,),
-                BigText(text: "Let's you in",),
+                BigText(text: "Let's you in", colors: ColorManager.boxText,),
                 SizedBox(height: AppHeight.h10,),
                 SocialBox(icon: "assets/images/face.png",text: "Continue with Facebook",),
                 SizedBox(height: AppSize.s10,),
@@ -44,19 +44,19 @@ class SocialLogin extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(width: MediaQuery.of(context).size.width*0.43,
-                      child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
-                    SmallText(text: "or"),
+                      child: Divider(height: 1,thickness: 1,color: ColorManager.boxText,)),
+                    SmallText(text: "or", color: ColorManager.boxText,),
                     SizedBox(width: MediaQuery.of(context).size.width*0.43,
-                      child: Divider(height: 1,thickness: 1,color: ColorManager.white,)),
+                      child: Divider(height: 1,thickness: 1,color: ColorManager.boxText,)),
                   ],
                 ),
-                SizedBox(height: AppHeight.h10,),
-                AuthenticationWidget(text: "Sign in with password",),
-                SizedBox(height: AppHeight.h10,),
+                SizedBox(height: AppHeight.h20,),
+                AuthenticationWidget(text: "Sign in with password",color: ColorManager.buttonColor,textColor: ColorManager.white,),
+                SizedBox(height: AppHeight.h30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SmallText(text: "Don't have an account?"),
+                    SmallText(text: "Don't have an account?", color: ColorManager.boxText,),
                     SizedBox(width: AppWidth.w10,),
                     SmallText(text: "Click here",size: AppSize.s14,color: Colors.blue,),
                   ],
@@ -81,7 +81,7 @@ SocialBox({required this.icon, required this.text});
       height: AppHeight.h60,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 1, color: ColorManager.boxBorder,),
+        border: Border.all(width: 1, color: ColorManager.boxBorderGrey,),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +100,7 @@ SocialBox({required this.icon, required this.text});
             fontSize: AppSize.s16,
             fontWeight: FontWeightManager.semibold,
             fontFamily: FontConstants.fontFamily,
-            color: ColorManager.white
+            color: ColorManager.boxText
           ),
           )
         ],
