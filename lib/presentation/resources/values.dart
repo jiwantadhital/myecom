@@ -30,6 +30,7 @@ class AppSize{
   static const double s18 = 18.0;
   static const double s20 = 20.0;
   static const double s28 = 28.0;
+  static const double s35 = 35.0;
   static const double s40 = 40.0;
   static const double s60 = 60.0;
   static const double s65 = 65.0;
@@ -68,7 +69,11 @@ class AppHeight{
   static const double h40 = 40.0;
   static const double h50 = 50.0;
   static const double h60 = 60.0;
+  static const double h80 = 80.0;
+  static const double h100 = 100.0;
   static const double h120 = 120.0;
+  static const double h150 = 150.0;
+  static const double h160 = 160.0;
   static const double h180 = 180.0;
   static const double h250 = 250.0;
   static const double h270 = 270.0;
@@ -89,5 +94,6 @@ class AppWidth{
   static const double w80 = 80.0;
   static const double w100 = 100.0;
   static const double w150 = 150.0;
+  static const double w180 = 180.0;
   static const double w250 = 250.0;
 }

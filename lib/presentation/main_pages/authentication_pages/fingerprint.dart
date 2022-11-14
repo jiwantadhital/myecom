@@ -39,7 +39,7 @@ class _FingerPrintState extends State<FingerPrint> {
                   child: Icon(Icons.fingerprint, size: 250,),
                 ),
               ),
-              SizedBox(height: AppHeight.h40,),
+              SizedBox(height: AppHeight.h60,),
               SmallText(text: "Please put your finger on fingerprint to get started.",color: ColorManager.boxText,weight: FontWeightManager.light,),
               SizedBox(height: AppHeight.h40,),
               Container(
