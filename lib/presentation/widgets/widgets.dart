@@ -71,11 +71,13 @@ double size;
 FontWeight weight;
 Color color;
 int lines;
-SmallText({required this.text, this.size = FontSize.s16, this.weight=FontWeightManager.medium, this.color= Colors.white, this.lines = 1});
+TextAlign align;
+SmallText({required this.text, this.size = FontSize.s16, this.weight=FontWeightManager.medium, this.color= Colors.white, this.lines = 1, this.align=TextAlign.start});
 
   @override
   Widget build(BuildContext context) {
     return Text(text,
+    textAlign: align,
     overflow: TextOverflow.clip,
     maxLines: lines,
     style: TextStyle(

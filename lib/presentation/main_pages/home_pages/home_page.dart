@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/carousel.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/categories_part.dart';
+import 'package:ecommerce/presentation/main_pages/home_pages/inside/offers.dart';
+import 'package:ecommerce/presentation/main_pages/home_pages/inside/recommended.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
@@ -25,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: ColorManager.textFieldColor.withOpacity(0.2),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
         child: Column(
           children: [
             Container(
@@ -120,44 +122,57 @@ class _HomePageState extends State<HomePage> {
                    SizedBox(height: AppHeight.h10,),
                    SeeAllTexts(title: "Recommended"),
                    SizedBox(height: AppHeight.h10,),
-                   Container(
-                    height: MediaQuery.of(context).size.height*0.3,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: ((context, index) {
+                   Recommended(),
+                   SizedBox(height: AppHeight.h20,),
+                   SpecialOffers(),
+                     SizedBox(height: AppHeight.h20,),
+                    SeeAllTexts(title: "Most Popular"),
+                    SizedBox(height: AppHeight.h30,),
+                    Container(
+                      height: 1000,
+                      child: GridView.builder(  
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 10,  
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(  
+                      crossAxisCount: 2,  
+                      crossAxisSpacing: 20.0,  
+                      childAspectRatio: 0.75,
+                      mainAxisSpacing: 9.0
+                    ),  
+                    itemBuilder: (BuildContext con, int index){  
                       return Container(
-                        margin: EdgeInsets.only(left: 10),
-                        width: AppWidth.w180,
                         decoration: BoxDecoration(
-                           boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 6,
-                                    offset: Offset(-2,0),
-                                    color: ColorManager.textFieldColor,
-                                  )
-                                ],
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
-                          color: ColorManager.white
                         ),
-                        child: Column(
+                        child: Stack(
                           children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 10,right: 10,top: 10),
-                              height: AppHeight.h160,
-                              decoration: BoxDecoration(
-                               
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(image: NetworkImage("https://cdn.pocket-lint.com/r/s/485x/assets/images/159747-phones-review-hands-on-vivo-v23-color-changing-mobile-phone-image7-acjviqsuf1.jpg"),fit: BoxFit.cover)
-                              ),
+                            Column(
+                              children: [
+                                Container(
+                                  height: AppHeight.h200,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 6,color: ColorManager.white),
+                                    borderRadius: BorderRadius.circular(30),
+                                    image: DecorationImage(image: NetworkImage("https://www.savethestudent.org/uploads/Online-fashion-retailers.jpg"),fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ],
                             ),
+                            Positioned(
+                              left: 120,
+                              child: Container(
+                              height: AppHeight.h80,
+                              width: AppWidth.w80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.white
+                              ),
+                            ))
                           ],
                         ),
                       );
-                    })),
-                   ),
-                   SizedBox(height: AppHeight.h20,),
-                   SeeAllTexts(title: "Most Popular")
+                  },  
+                    ),
+                    ),
                 ],
               ),
             ),

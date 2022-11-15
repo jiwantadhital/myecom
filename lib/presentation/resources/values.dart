@@ -75,6 +75,8 @@ class AppHeight{
   static const double h150 = 150.0;
   static const double h160 = 160.0;
   static const double h180 = 180.0;
+  static const double h190 = 190.0;
+  static const double h200 = 200.0;
   static const double h250 = 250.0;
   static const double h270 = 270.0;
 }
@@ -95,5 +97,7 @@ class AppWidth{
   static const double w100 = 100.0;
   static const double w150 = 150.0;
   static const double w180 = 180.0;
+  static const double w190 = 190.0;
+  static const double w200 = 200.0;
   static const double w250 = 250.0;
 }
