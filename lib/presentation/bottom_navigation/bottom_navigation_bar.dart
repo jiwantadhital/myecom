@@ -1,3 +1,4 @@
+import 'package:ecommerce/presentation/main_pages/categories/categories.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
   int _selectedIndex = 0;
   List pages = [
     HomePage(),
-    Container(child: Center(child: Text("Home")),),
+    Categories(),
     Container(child: Center(child: Text("Home")),),
     Container(child: Center(child: Text("Home")),),
   ];

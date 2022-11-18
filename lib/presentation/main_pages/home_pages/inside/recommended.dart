@@ -12,7 +12,7 @@ class Recommended extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     height: MediaQuery.of(context).size.height*0.32,
+     height: MediaQuery.of(context).size.height*0.31,
      child: ListView.builder(
        scrollDirection: Axis.horizontal,
        itemCount: 5,

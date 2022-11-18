@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/carousel.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/categories_part.dart';
+import 'package:ecommerce/presentation/main_pages/home_pages/inside/mostpopular.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/offers.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/recommended.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: ColorManager.textFieldColor.withOpacity(0.2),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Column(
           children: [
             Container(
@@ -127,52 +128,8 @@ class _HomePageState extends State<HomePage> {
                    SpecialOffers(),
                      SizedBox(height: AppHeight.h20,),
                     SeeAllTexts(title: "Most Popular"),
-                    SizedBox(height: AppHeight.h30,),
-                    Container(
-                      height: 1000,
-                      child: GridView.builder(  
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 10,  
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(  
-                      crossAxisCount: 2,  
-                      crossAxisSpacing: 20.0,  
-                      childAspectRatio: 0.75,
-                      mainAxisSpacing: 9.0
-                    ),  
-                    itemBuilder: (BuildContext con, int index){  
-                      return Container(
-                        decoration: BoxDecoration(
-                        ),
-                        child: Stack(
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  height: AppHeight.h200,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 6,color: ColorManager.white),
-                                    borderRadius: BorderRadius.circular(30),
-                                    image: DecorationImage(image: NetworkImage("https://www.savethestudent.org/uploads/Online-fashion-retailers.jpg"),fit: BoxFit.cover),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Positioned(
-                              left: 120,
-                              child: Container(
-                              height: AppHeight.h80,
-                              width: AppWidth.w80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: Colors.white
-                              ),
-                            ))
-                          ],
-                        ),
-                      );
-                  },  
-                    ),
-                    ),
+                    SizedBox(height: AppHeight.h20,),
+                    MostPopular(),
                 ],
               ),
             ),
