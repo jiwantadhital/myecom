@@ -19,6 +19,8 @@ class _MostPopularState extends State<MostPopular> {
 
   @override
   Widget build(BuildContext context) {
+        var size = MediaQuery.of(context).size;
+        print(size.width);
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Flex(
@@ -32,7 +34,7 @@ class _MostPopularState extends State<MostPopular> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(  
             crossAxisCount: 2,  
             crossAxisSpacing: 10.0,  
-            childAspectRatio: 0.7,
+            childAspectRatio: size.width<370?0.7:0.8,
             mainAxisSpacing: 9.0
               ),  
               itemBuilder: (BuildContext con, int index){  
@@ -61,7 +63,7 @@ class _MostPopularState extends State<MostPopular> {
                     ],
                   ),
                   Positioned(
-                    left: 90,
+                    left: MediaQuery.of(context).size.width*0.260,
                     child: GestureDetector(
                       onTap: (){},
                       child: Container(

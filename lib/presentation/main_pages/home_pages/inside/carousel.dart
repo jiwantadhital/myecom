@@ -19,6 +19,7 @@ class _CarouselPartState extends State<CarouselPart> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Stack(
       children:[ CarouselSlider.builder(
         options: CarouselOptions(
@@ -41,7 +42,7 @@ class _CarouselPartState extends State<CarouselPart> {
     ),
 ),
             Positioned(
-    top: MediaQuery.of(context).size.height*0.27,
+    top: size.width < 365? MediaQuery.of(context).size.height*0.22:MediaQuery.of(context).size.height*0.27,
     left: MediaQuery.of(context).size.width*0.35,
     child:  DotsIndicator(
         dotsCount: counts,

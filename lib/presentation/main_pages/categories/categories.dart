@@ -24,6 +24,7 @@ class _CategoriesState extends State<Categories> {
   ContainerTransitionType _transitionType = ContainerTransitionType.fade;
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -137,8 +138,8 @@ class _CategoriesState extends State<Categories> {
               itemCount: 10,  
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(  
             crossAxisCount: 2,  
-            crossAxisSpacing: 10.0,  
-            childAspectRatio: 0.7,
+            crossAxisSpacing: 20.0,  
+            childAspectRatio: size.width<365?0.75:0.8,
             mainAxisSpacing: 9.0
               ),  
               itemBuilder: (BuildContext con, int index){  
@@ -168,6 +169,7 @@ class _CategoriesState extends State<Categories> {
                      width: AppWidth.w150,
                      child: Center(child: SmallText(text: "Super Shiny 32", color: ColorManager.boxText,weight: FontWeightManager.semibold,)),
                    ),
+                   SizedBox(height: AppHeight.h5,),
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: [
@@ -175,8 +177,8 @@ class _CategoriesState extends State<Categories> {
                          width: AppWidth.w50,
                          child: RichText(text: TextSpan(
                            children: [
-                             WidgetSpan(child: Icon(Icons.star, color: Colors.yellow,size: 12,),),
-                             WidgetSpan(child: SmallText(text: "3.5",color: ColorManager.boxText,size: 12,))
+                             WidgetSpan(child: Icon(Icons.star, color: Colors.yellow,size: 15,),),
+                             WidgetSpan(child: SmallText(text: "3.5",color: ColorManager.boxText,size: 15,))
                            ],
                          )),
                        ),
