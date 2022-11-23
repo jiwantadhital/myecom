@@ -6,7 +6,9 @@ import 'package:ecommerce/presentation/main_pages/authentication_pages/login_pag
 import 'package:ecommerce/presentation/main_pages/authentication_pages/profile_fill.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/register_page.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/social_login.dart';
+import 'package:ecommerce/presentation/main_pages/home_pages/details/detail_page.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
+import 'package:ecommerce/tests/test1.dart';
 import 'package:flutter/material.dart';
 
 import 'presentation/main_pages/authentication_pages/fingerprint.dart';
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme: BottomSheetThemeData(
             backgroundColor: Colors.black.withOpacity(0)),
       ),
-      home: const MyHomePage(),
+      home: const Test1(),
     );
   }
 }
