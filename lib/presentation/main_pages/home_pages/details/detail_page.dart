@@ -124,18 +124,22 @@ class _DetailPageState extends State<DetailPage> {
               ],
             ),
           ),
-                   Container(
-                    margin: EdgeInsets.only(left: 10,right: 10),
-                    height: 250,
-                    child: SmallText(
-                      align: TextAlign.justify,
-                      text: "Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums",color: ColorManager.grey,size: 12,lines: 16,),
+                   Expanded(
+                     child: SingleChildScrollView(
+                       child: Container(
+                        margin: EdgeInsets.only(left: 10,right: 10),
+                        height: 250,
+                        child: SmallText(
+                          align: TextAlign.justify,
+                          text: "Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums. Products tailored and designed to address the distinct needs of many different environments can be spotted rolling through the corridors of hospitals, hotels, sports stadiums",color: ColorManager.grey,size: 12,lines: 16,),
+                       ),
+                     ),
                    ),
 
         ],
       ),
       bottomNavigationBar: Container(
-        height: 80,
+        height: 70,
         width: double.maxFinite,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
