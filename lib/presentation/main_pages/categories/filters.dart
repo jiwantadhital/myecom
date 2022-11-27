@@ -14,6 +14,9 @@ class Filters extends StatefulWidget {
 }
 
 class _FiltersState extends State<Filters> {
+    int myIndex =0;
+
+  double newValue=10;
   @override
   Widget build(BuildContext context) { 
     var size = MediaQuery.of(context).size;
@@ -41,42 +44,105 @@ class _FiltersState extends State<Filters> {
                     BigText(text: "Choose Your Filters",colors: ColorManager.boxText,size: 25,weight: FontWeightManager.semibold,),
                     const SizedBox(height: AppHeight.h10,),
                     SmallText(text: "Price Range",color: ColorManager.boxText,weight: FontWeightManager.semibold,),
-                       SizedBox(height: 5,),
                     Container(
-                      height: AppHeight.h80,
+                      height: AppHeight.h60,
                       width: double.maxFinite,
-                      child: Row(
-                        children: [
-                          Column(
-                            children: [
-                              SmallText(text: "Minimum",color: ColorManager.lightGrey,size: 15,),
-                              SizedBox(height: 5,),
-                              Container(
-                                width: size.width*0.4,
-                                height: 50,
-                                child: const TextField(
-                                  maxLength: 7,
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(color: Colors.grey),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 2,
-                                      )
-                                    )
-                                  ),
-                                  
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ],
+                      child: Slider(
+                        activeColor: ColorManager.buttonColor,
+                        min: 1.00,
+                        max: 200,
+                        divisions: 10,
+                        value: newValue,
+                        onChanged: (val){
+                          setState(() {
+                            newValue=val;
+                          });
+                        })
+                    ),
+              SizedBox(height: AppHeight.h10,),
+             SmallText(text: "Sort By",color: ColorManager.boxText,weight: FontWeightManager.semibold,),
+             SizedBox(height: AppHeight.h10,),
+             Container(
+              height: AppHeight.h50,
+              child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index){
+                  return GestureDetector(
+                      onTap: (){
+                        myIndex=index;
+                        setState(() {
+                          
+                        });
+                      },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      height: 20,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color:index==myIndex? Color.fromARGB(255, 23, 141, 27):ColorManager.white,
+                        border: index==myIndex? Border.all(width: 2,color: ColorManager.buttonColor,):Border.all(width: 2),
                       ),
-                    )
-
+                      child: Center(child: SmallText(text: "Clothes",color: index==myIndex? Colors.white:ColorManager.buttonColor,size: 15,weight: FontWeightManager.semibold,)),
+                    ),
+                  );
+                }),
+             ),
+              SizedBox(height: AppHeight.h10,),
+             SmallText(text: "Rating",color: ColorManager.boxText,weight: FontWeightManager.semibold,),
+             SizedBox(height: AppHeight.h10,),
+             Container(
+              height: AppHeight.h50,
+              child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index){
+                  return GestureDetector(
+                      onTap: (){
+                        myIndex=index;
+                        setState(() {
+                          
+                        });
+                      },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5,right: 5),
+                      height: 20,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color:index==myIndex? Color.fromARGB(255, 23, 141, 27):ColorManager.white,
+                        border: index==myIndex? Border.all(width: 2,color: ColorManager.buttonColor,):Border.all(width: 2),
+                      ),
+                      child: Center(child: SmallText(text: "5 star",color: index==myIndex? Colors.white:ColorManager.buttonColor,size: 15,weight: FontWeightManager.semibold,)),
+                    ),
+                  );
+                }),
+             ),
+             SizedBox(height: AppHeight.h40,),
+             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  height: AppHeight.h60,
+                  width: MediaQuery.of(context).size.width*0.4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: ColorManager.lightGrey,
+                  ),
+                  child: Center(child: SmallText(text: "Reset",size: 20,weight: FontWeightManager.semibold,)),
+                ),
+                Container(
+                  height: AppHeight.h60,
+                  width: MediaQuery.of(context).size.width*0.4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: ColorManager.buttonColor,
+                  ),
+                  child: Center(child: SmallText(text: "Apply",size: 20,weight: FontWeightManager.semibold,)),
+                )
+              ],
+             )
                   ],
                 ),
                     );

@@ -44,3 +44,56 @@ class CategoriesPart extends StatelessWidget {
 
 
 
+
+
+class CategoryPart extends StatelessWidget {
+  const CategoryPart({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: AppHeight.h150,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+      itemBuilder: ((BuildContext context, index) {
+        return Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: AppSize.s12,right: AppSize.s12,top: AppSize.s8),
+              height: AppHeight.h100,
+              width: AppWidth.w100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(AppSize.s40),
+                color: ColorManager.lightGrey,
+                border: Border.all(width: AppWidth.w8,color: ColorManager.white.withOpacity(0.9)),
+                image: DecorationImage(image: NetworkImage(
+                  "https://image.shutterstock.com/image-vector/black-friday-vector-banner-poster-260nw-1836689074.jpg"
+                ),
+                fit: BoxFit.cover
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(1,3),
+                    blurRadius: 3,
+                    color: ColorManager.lightGrey
+                  )
+                ]
+              ),
+            ),
+            SizedBox(
+              height: AppSize.s8,
+            ),
+            Container(
+              height: AppHeight.h25,
+              width: 120,
+              child: Center(child: SmallText(text:"Purse",weight: FontWeight.w200,color: ColorManager.boxText,)),
+            ),
+          ],
+        );
+      })
+      ),
+    );
+  }
+}

@@ -37,13 +37,16 @@ class _Test1State extends State<Test1> {
                         fit: BoxFit.cover,
                       )),
                       bottom: PreferredSize(
-                        preferredSize: Size.fromHeight(20),
-                        child: Container(),
-                      ),
-                ),
-                SliverPersistentHeader(
-                  delegate: _SliverAppBarDelegate(
-                    TabBar(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft:Radius.circular(20),topRight: Radius.circular(20)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      children: [
+                        TabBar(
                       labelColor: Colors.black87,
                       unselectedLabelColor: Colors.grey,
                       tabs: [
@@ -52,15 +55,40 @@ class _Test1State extends State<Test1> {
                         Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 3"),
                       ],
                     ),
+                      ],
+                    ),
                   ),
-                  pinned: true,
+                  width: double.maxFinite,
+                  padding: EdgeInsets.only(top: 10),
                 ),
+                preferredSize: Size.fromHeight(20),
+                ),
+                ),
+                // SliverPersistentHeader(
+                //   delegate: _SliverAppBarDelegate(
+                //     TabBar(
+                //       labelColor: Colors.black87,
+                //       unselectedLabelColor: Colors.grey,
+                //       tabs: [
+                //         Tab(icon: Icon(Icons.info), text: "Tab 1"),
+                //         Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 2"),
+                //         Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 3"),
+                //       ],
+                //     ),
+                //   ),
+                //   pinned: true,
+                // ),
               ];
             },
             body: Container(
               decoration: BoxDecoration(
-                color: Colors.white
+                color: Colors.white,
               ),
+              child: TabBarView(children: [
+                Text("H"),
+                Text("H"),
+                Text("H"),
+              ]),
             )
           ),
         ),
@@ -85,7 +113,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       return  Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
+          // borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
         ),
         child: _tabBar,
       );

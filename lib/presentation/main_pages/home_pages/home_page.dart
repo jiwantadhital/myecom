@@ -114,12 +114,12 @@ class _HomePageState extends State<HomePage> {
               physics: ClampingScrollPhysics(),
               child: Column(
                 children: [
-                  SizedBox(height: AppHeight.h15,),
+                  SizedBox(height: AppHeight.h5,),
                   CarouselPart(),
                   SizedBox(height: AppHeight.h20,),
                    SeeAllTexts(title: "Categories",),
                    SizedBox(height: AppHeight.h10,),
-                   CategoriesPart(),
+                   CategoryPart(),
                    SizedBox(height: AppHeight.h10,),
                    SeeAllTexts(title: "Recommended"),
                    SizedBox(height: AppHeight.h10,),
