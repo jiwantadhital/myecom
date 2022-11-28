@@ -52,7 +52,7 @@ class CategoryPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppHeight.h150,
+      height: AppHeight.h120,
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -61,11 +61,11 @@ class CategoryPart extends StatelessWidget {
         return Column(
           children: [
             Container(
-              margin: EdgeInsets.only(left: AppSize.s12,right: AppSize.s12,top: AppSize.s8),
-              height: AppHeight.h100,
-              width: AppWidth.w100,
+              margin: EdgeInsets.only(left: AppSize.s12,right: AppSize.s12,),
+              height: AppHeight.h80,
+              width: AppWidth.w80,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppSize.s40),
+                borderRadius: BorderRadius.circular(AppSize.s35),
                 color: ColorManager.lightGrey,
                 border: Border.all(width: AppWidth.w8,color: ColorManager.white.withOpacity(0.9)),
                 image: DecorationImage(image: NetworkImage(

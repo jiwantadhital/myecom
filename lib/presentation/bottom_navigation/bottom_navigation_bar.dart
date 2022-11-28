@@ -1,5 +1,7 @@
 import 'package:ecommerce/presentation/main_pages/categories/categories.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
+import 'package:ecommerce/presentation/main_pages/order_page/my_orders.dart';
+import 'package:ecommerce/presentation/main_pages/profile_pages/profile_page.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +18,8 @@ class _BottomBarPageState extends State<BottomBarPage> {
   List pages = [
     HomePage(),
     Categories(),
-    Container(child: Center(child: Text("Home")),),
-    Container(child: Center(child: Text("Home")),),
+    MyOrders(),
+    ProfilePage(),
   ];
   void onTapNav(int index){
     setState(() {

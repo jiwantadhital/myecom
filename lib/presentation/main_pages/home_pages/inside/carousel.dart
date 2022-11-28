@@ -45,7 +45,6 @@ class _CarouselPartState extends State<CarouselPart> {
           itemCount: 3,
           itemBuilder: (BuildContext context,int index, int pageViewIndex) =>
            Container(
-            margin: EdgeInsets.only(top: 10),
              height: 160,
              width: double.maxFinite,
              decoration: BoxDecoration(
@@ -61,7 +60,7 @@ class _CarouselPartState extends State<CarouselPart> {
              ),
           ),
             Positioned(
-    top: size.width < 365? MediaQuery.of(context).size.height*0.15:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
+    top: size.width < 365? MediaQuery.of(context).size.height*0.20:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
     left: MediaQuery.of(context).size.width*0.35,
     child:  DotsIndicator(
         dotsCount: counts,
