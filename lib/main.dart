@@ -1,21 +1,22 @@
-import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/forgot_password/create_new_password.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/forgot_password/select_contact.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/forgot_password/send_code.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/login_page.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/profile_fill.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/register_page.dart';
-import 'package:ecommerce/presentation/main_pages/authentication_pages/social_login.dart';
-import 'package:ecommerce/presentation/main_pages/cart/cart_page.dart';
-import 'package:ecommerce/presentation/main_pages/home_pages/details/detail_page.dart';
-import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
-import 'package:ecommerce/tests/test1.dart';
+
+import 'dart:io';
+
+import 'package:ecommerce/presentation/splash/splash_screen.dart';
+import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 
-import 'presentation/main_pages/authentication_pages/fingerprint.dart';
-
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
+
+
   runApp(const MyApp());
 }
 
@@ -32,16 +33,9 @@ class MyApp extends StatelessWidget {
         bottomSheetTheme: BottomSheetThemeData(
             backgroundColor: Colors.black.withOpacity(0)),
       ),
-      home: const BottomBarPage(),
+      onGenerateRoute: RouteGenerator.getRoute,
+        initialRoute: Routes.splashRoute,
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomBarPage();
-  }
-}

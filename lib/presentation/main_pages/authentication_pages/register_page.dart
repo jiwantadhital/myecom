@@ -58,10 +58,10 @@ class _RegisterPageState extends State<RegisterPage> {
                Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(width: MediaQuery.of(context).size.width*0.29,
+                      SizedBox(width: MediaQuery.of(context).size.width*0.28,
                         child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
                       SmallText(text: "or continue with", color: ColorManager.boxText,),
-                      SizedBox(width: MediaQuery.of(context).size.width*0.29,
+                      SizedBox(width: MediaQuery.of(context).size.width*0.28,
                         child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
                     ],
                   ),

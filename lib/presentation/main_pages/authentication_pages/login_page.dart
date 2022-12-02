@@ -17,7 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool ourValue = false;
-
+  bool active = false;
+@override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +40,21 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: AppHeight.h30,),
                 TextFieldHelp(hintText: "Email",icon: Icons.email,hide:false,controller: emailController,),
                 SizedBox(height: AppHeight.h20,),
-                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,),
+                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,
+                changed: (String valu){
+                  if(valu.length>4){
+                    setState(() {
+                  
+                      active = true;
+                    });
+                  }
+                  else{
+                    setState(() {
+                      active = false;
+                    });
+                  }
+                },
+                ),
                 SizedBox(height: AppHeight.h20,),
                  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 SizedBox(height: AppHeight.h20,),
-                passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color: ColorManager.boxBorderGrey,  textColor: ColorManager.white,):AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,),
+                passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color:active==false? ColorManager.boxBorderGrey:ColorManager.buttonColor,  textColor: ColorManager.white,):AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,),
                SizedBox(height: AppHeight.h20,),
                SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
                SizedBox(height: AppHeight.h30,),

@@ -2,6 +2,7 @@ import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
+import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -20,7 +21,7 @@ class SocialLogin extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                TopSection(),
+                // TopSection(),
                 Container(
                   height: MediaQuery.of(context).size.height*0.25,
                   decoration: BoxDecoration(
@@ -51,14 +52,22 @@ class SocialLogin extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: AppHeight.h20,),
-                AuthenticationWidget(text: "Sign in with password",color: ColorManager.buttonColor,textColor: ColorManager.white,),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, Routes.loginRoute);
+                  },
+                  child: AuthenticationWidget(text: "Sign in with password",color: ColorManager.buttonColor,textColor: ColorManager.white,)),
                 SizedBox(height: AppHeight.h30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SmallText(text: "Don't have an account?", color: ColorManager.boxText,),
                     SizedBox(width: AppWidth.w10,),
-                    SmallText(text: "Click here",size: AppSize.s14,color: Colors.blue,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, Routes.registerRoute);
+                      },
+                      child: SmallText(text: "Click here",size: AppSize.s14,color: Colors.blue,)),
                   ],
                 ),
               ],

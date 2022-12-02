@@ -1,12 +1,14 @@
 import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/login_page.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/register_page.dart';
+import 'package:ecommerce/presentation/main_pages/authentication_pages/social_login.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
+import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes{
   static const String splashRoute = "/";
-  static const String onBoardinghRoute = "/onBoarding";
+  static const String social = "/social";
   static const String loginRoute = "/login";
   static const String registerRoute = "/register";
   static const String forgotPasswordRoute = "/forgotPassword";
@@ -26,7 +28,11 @@ class RouteGenerator{
       case Routes.mainRoute:
       return MaterialPageRoute(builder: (_)=>HomePage());
       case Routes.bottomBarRoute:
-      return MaterialPageRoute(builder: (_)=>BottomBarPage());;
+      return MaterialPageRoute(builder: (_)=>BottomBarPage());
+            case Routes.splashRoute:
+      return MaterialPageRoute(builder: (_)=>SplashScreen());
+              case Routes.social:
+      return MaterialPageRoute(builder: (_)=>SocialLogin());
       default:
       return unDefinedRoute();
     }

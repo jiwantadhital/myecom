@@ -15,7 +15,11 @@ TopSection({this.text});
       height: MediaQuery.of(context).size.height*0.06,
       child: Row(
         children: [
-          Icon(Icons.arrow_back_rounded, color: ColorManager.boxText,),
+          GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_rounded, color: ColorManager.boxText,)),
           SizedBox(width: AppWidth.w20,),
           MediumText(text: text,),
         ],
@@ -121,11 +125,13 @@ class TextFieldHelp extends StatelessWidget {
   IconData? backIcon;
   bool hide = false;
   TextEditingController? controller;
-  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon, this.hide=false});
+  var changed;
+  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: changed,
       obscureText: hide,
       controller: controller,
       style: TextStyle(color: ColorManager.boxText),
