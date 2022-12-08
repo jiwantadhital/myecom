@@ -3,6 +3,7 @@ import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
+import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: ColorManager.backgroundColor,
       body: SafeArea(
-        child: Container(
+        child: BlocConsumer<LoginBloc,LoginState>(builder: (context,state){
+          if(state is UnAuthenticated){
+            return Container(
           margin: EdgeInsets.all(AppMargin.m10),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -47,12 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                   validate: (val){
                     
                   },
-                  changed: (val){
-                //  context.read<LoginBloc>().add(LoginEmailChanged(email: val));
-                 if(val!.isEmpty){
-        return "Email must not be empty";
-      }
-                  },
+               
                   ),
                   SizedBox(height: AppHeight.h20,),
                   TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,
@@ -88,7 +86,13 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   SizedBox(height: AppHeight.h20,),
-                  passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color:active==false? ColorManager.boxBorderGrey:ColorManager.buttonColor,  textColor: ColorManager.white,):AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,),
+                  passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color:active==false? ColorManager.boxBorderGrey:ColorManager.buttonColor,  textColor: ColorManager.white,):GestureDetector(
+                    onTap: (){
+                      if(emailController.text.isNotEmpty||passwordController.text.isNotEmpty){
+                        context.read<LoginBloc>().add(LoginRequested(email: emailController.text.trim(), password: passwordController.text.trim()));
+                      }
+                    },
+                    child: AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,)),
                  SizedBox(height: AppHeight.h20,),
                  SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
                  SizedBox(height: AppHeight.h30,),
@@ -123,7 +127,21 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-        ),
+        );
+          }
+          if(state is LoginLoading){
+            return CircularProgressIndicator();
+          }
+          return Container();
+        }, listener: (context,state){
+          if(state is AuthError){
+            print(state.error);
+          }
+          if(state is Authenticated){
+            // Navigator.pushNamed(context, Routes.mainRoute);
+            print("success");
+          }
+        })
       ),
     );
   }

@@ -17,11 +17,14 @@ class AuthRepository {
     try {
       if (response.statusCode == 200) {
         allModel = jsonDecode(response.body);
-        print(response.body);
+      }
+      else if(response.statusCode == 401){
+        allModel = jsonDecode(response.body);
       }
     } catch (e) {
       print(e);
     }
+        print(response.statusCode);
 
     return allModel;
   }
@@ -34,7 +37,7 @@ class AuthRepository {
     }) async {
     var loginModel;
 
-    loginModel = await LoginModel.fromJson(await responseBody(
+    loginModel =  LoginModel.fromJson(await responseBody(
         response: await dataService.authenticate(
             email: email, password: password)));
     print("true return");
