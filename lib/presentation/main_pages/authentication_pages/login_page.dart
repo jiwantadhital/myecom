@@ -1,10 +1,11 @@
+import 'package:ecommerce/logic/bloc/login_bloc.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+    final _formKey = GlobalKey<FormState>();
+
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool ourValue = false;
@@ -33,78 +36,91 @@ class _LoginPageState extends State<LoginPage> {
           margin: EdgeInsets.all(AppMargin.m10),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                TopSection(),
-                BigText(text: "Login", colors: ColorManager.boxText,),
-                SizedBox(height: AppHeight.h30,),
-                TextFieldHelp(hintText: "Email",icon: Icons.email,hide:false,controller: emailController,),
-                SizedBox(height: AppHeight.h20,),
-                TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,
-                changed: (String valu){
-                  if(valu.length>4){
-                    setState(() {
-                  
-                      active = true;
-                    });
-                  }
-                  else{
-                    setState(() {
-                      active = false;
-                    });
-                  }
-                },
-                ),
-                SizedBox(height: AppHeight.h20,),
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      checkColor: ColorManager.backgroundColor,
-                      activeColor: ColorManager.white,
-                      fillColor: MaterialStateProperty.all<Color>(Colors.black),
-                      value: ourValue,
-                       onChanged: (val){
-                        setState(() {
-                         ourValue==false?ourValue=true:ourValue=false;
-                        });
-                       }),
-                       SmallText(text: "Remember me", weight: FontWeightManager.medium,color: ColorManager.boxText,)
-                  ],
-                ),
-                SizedBox(height: AppHeight.h20,),
-                passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color:active==false? ColorManager.boxBorderGrey:ColorManager.buttonColor,  textColor: ColorManager.white,):AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,),
-               SizedBox(height: AppHeight.h20,),
-               SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
-               SizedBox(height: AppHeight.h30,),
-               Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(width: MediaQuery.of(context).size.width*0.28,
-                        child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
-                      SmallText(text: "or continue with", color: ColorManager.boxText,),
-                      SizedBox(width: MediaQuery.of(context).size.width*0.28,
-                        child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
-                    ],
-                  ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TopSection(),
+                  BigText(text: "Login", colors: ColorManager.boxText,),
                   SizedBox(height: AppHeight.h30,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SignWith(image: "assets/images/face.png",),
-                      SignWith(image: "assets/images/goog.png",),
-                      SignWith(image: "assets/images/appl.png",),
-                    ],
+                  TextFieldHelp(hintText: "Email",icon: Icons.email,hide:false,controller: emailController,
+                  validate: (val){
+                    
+                  },
+                  changed: (val){
+                //  context.read<LoginBloc>().add(LoginEmailChanged(email: val));
+                 if(val!.isEmpty){
+        return "Email must not be empty";
+      }
+                  },
                   ),
-                  SizedBox(height: AppHeight.h30,),
-                  Row(
+                  SizedBox(height: AppHeight.h20,),
+                  TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,
+                  changed: (String valu){
+                    if(valu.length>4){
+                      setState(() {
+                    
+                        active = true;
+                      });
+                    }
+                    else{
+                      setState(() {
+                        active = false;
+                      });
+                    }
+                  },
+                  ),
+                  SizedBox(height: AppHeight.h20,),
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SmallText(text: "Don't have an account? ", color: ColorManager.boxText,),
-                      SmallText(text: "Sign Up", color: Colors.blue,),
+                      Checkbox(
+                        checkColor: ColorManager.backgroundColor,
+                        activeColor: ColorManager.white,
+                        fillColor: MaterialStateProperty.all<Color>(Colors.black),
+                        value: ourValue,
+                         onChanged: (val){
+                          setState(() {
+                           ourValue==false?ourValue=true:ourValue=false;
+                          });
+                         }),
+                         SmallText(text: "Remember me", weight: FontWeightManager.medium,color: ColorManager.boxText,)
                     ],
                   ),
-              ],
+                  SizedBox(height: AppHeight.h20,),
+                  passwordController.text.isEmpty?AuthenticationWidget(text: "Sign in",color:active==false? ColorManager.boxBorderGrey:ColorManager.buttonColor,  textColor: ColorManager.white,):AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,),
+                 SizedBox(height: AppHeight.h20,),
+                 SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
+                 SizedBox(height: AppHeight.h30,),
+                 Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(width: MediaQuery.of(context).size.width*0.28,
+                          child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
+                        SmallText(text: "or continue with", color: ColorManager.boxText,),
+                        SizedBox(width: MediaQuery.of(context).size.width*0.28,
+                          child: Divider(height: 1,thickness: 1,color: ColorManager.grey,)),
+                      ],
+                    ),
+                    SizedBox(height: AppHeight.h30,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SignWith(image: "assets/images/face.png",),
+                        SignWith(image: "assets/images/goog.png",),
+                        SignWith(image: "assets/images/appl.png",),
+                      ],
+                    ),
+                    SizedBox(height: AppHeight.h30,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SmallText(text: "Don't have an account? ", color: ColorManager.boxText,),
+                        SmallText(text: "Sign Up", color: Colors.blue,),
+                      ],
+                    ),
+                ],
+              ),
             ),
           ),
         ),

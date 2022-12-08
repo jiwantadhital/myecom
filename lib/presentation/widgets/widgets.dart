@@ -126,11 +126,13 @@ class TextFieldHelp extends StatelessWidget {
   bool hide = false;
   TextEditingController? controller;
   var changed;
-  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed});
+  var validate;
+  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed, this.validate});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: validate,
       onChanged: changed,
       obscureText: hide,
       controller: controller,
