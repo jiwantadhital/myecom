@@ -2,6 +2,7 @@ import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.d
 import 'package:ecommerce/presentation/main_pages/authentication_pages/login_page.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/register_page.dart';
 import 'package:ecommerce/presentation/main_pages/authentication_pages/social_login.dart';
+import 'package:ecommerce/presentation/main_pages/cart/cart_page.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class Routes{
   static const String storeDetailsRoute = "/storeDetails";
   static const String bottomBarRoute = "/bottomBar";
   static const String recentRoute = "/recent";
+  static const String cartRoute = "/cart";
 }
 
 class RouteGenerator{
@@ -33,6 +35,8 @@ class RouteGenerator{
       return MaterialPageRoute(builder: (_)=>SplashScreen());
               case Routes.social:
       return MaterialPageRoute(builder: (_)=>SocialLogin());
+              case Routes.cartRoute:
+      return MaterialPageRoute(builder: (_)=>CartPage());
       default:
       return unDefinedRoute();
     }

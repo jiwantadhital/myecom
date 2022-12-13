@@ -1,3 +1,4 @@
+import 'package:ecommerce/presentation/main_pages/cart/cart_page.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/details/description_spec_comment.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/details/extra_details_widgets.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
@@ -49,7 +50,13 @@ class _DetailPageState extends State<DetailPage> {
                           child: IconWidget(icons: Icons.arrow_back,backgroundColor: ColorManager.buttonColor.withOpacity(0.6))),
                         Stack(
                           children: [
-                            IconWidget(icons: Icons.shopping_cart,backgroundColor: ColorManager.buttonColor.withOpacity(0.6)),
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context){
+                                  return CartPage();
+                                }));
+                              },
+                              child: IconWidget(icons: Icons.shopping_cart,backgroundColor: ColorManager.buttonColor.withOpacity(0.6))),
                             Positioned(child: Container(
                               margin: const EdgeInsets.only(top: 10,left: 40),
                               height: 15,

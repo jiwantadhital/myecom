@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:ecommerce/data_provider/data_provider.dart';
 import 'package:ecommerce/local_database/shared_prefs.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
+import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:ecommerce/repository/auth_repository.dart';
 import 'package:ecommerce/routes/route_manager.dart';
@@ -45,8 +47,9 @@ class MyApp extends StatelessWidget {
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: Colors.black.withOpacity(0)),
         ),
-        onGenerateRoute: RouteGenerator.getRoute,
-          initialRoute: Routes.splashRoute,
+        home: BottomBarPage(),
+        // onGenerateRoute: RouteGenerator.getRoute,
+        //   initialRoute: Routes.splashRoute,
       ),
     );
   }
