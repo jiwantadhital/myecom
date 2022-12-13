@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:ecommerce/data_provider/data_provider.dart';
+import 'package:ecommerce/local_database/shared_prefs.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:ecommerce/repository/auth_repository.dart';
@@ -16,10 +17,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
-void main() {
+Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-
+ await UserSimplePreferences.init();
 
   runApp(const MyApp());
 }

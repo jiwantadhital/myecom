@@ -11,6 +11,7 @@ class AuthError extends LoginState {
   final String error;
 
    AuthError({required this.error});
+ 
 
   @override
   List<Object> get props => [error];

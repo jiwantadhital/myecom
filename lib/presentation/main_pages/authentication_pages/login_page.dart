@@ -1,4 +1,6 @@
+import 'package:ecommerce/local_database/shared_prefs.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
+import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
@@ -16,12 +18,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-    final _formKey = GlobalKey<FormState>();
-
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+    final _formKey = GlobalKey<FormState>(); 
+  var emailController = TextEditingController(text:UserSimplePreferences.getEmail()?? "");
+  var passwordController = TextEditingController(text: UserSimplePreferences.getEmail()??"");
   bool ourValue = false;
   bool active = false;
+  bool obscureText = true;
 @override
   void dispose() {
     emailController.dispose();
@@ -30,11 +32,11 @@ class _LoginPageState extends State<LoginPage> {
   }
   @override
   Widget build(BuildContext context) {
+ print(UserSimplePreferences.getToken());
     return Scaffold(
       backgroundColor: ColorManager.backgroundColor,
       body: SafeArea(
         child: BlocConsumer<LoginBloc,LoginState>(builder: (context,state){
-          if(state is UnAuthenticated){
             return Container(
           margin: EdgeInsets.all(AppMargin.m10),
           child: SingleChildScrollView(
@@ -53,7 +55,13 @@ class _LoginPageState extends State<LoginPage> {
                
                   ),
                   SizedBox(height: AppHeight.h20,),
-                  TextFieldHelp(icon: Icons.lock, hintText: "Password", backIcon: Icons.remove_red_eye_sharp,hide: true,controller: passwordController,
+                  TextFieldHelp(
+                    forPassword: (){
+                       setState(() {
+                           obscureText==false?obscureText=true:obscureText=false;
+                          });
+                    },
+                    icon: Icons.lock, hintText: "Password", backIcon:obscureText==true?Icons.remove_red_eye_rounded: Icons.remove_red_eye_outlined,hide: obscureText,controller: passwordController,
                   changed: (String valu){
                     if(valu.length>4){
                       setState(() {
@@ -76,10 +84,17 @@ class _LoginPageState extends State<LoginPage> {
                         checkColor: ColorManager.backgroundColor,
                         activeColor: ColorManager.white,
                         fillColor: MaterialStateProperty.all<Color>(Colors.black),
-                        value: ourValue,
+                        value:UserSimplePreferences.getRemember()?? ourValue,
                          onChanged: (val){
                           setState(() {
                            ourValue==false?ourValue=true:ourValue=false;
+                          });
+                          UserSimplePreferences.setRemember(ourValue);
+                          if(UserSimplePreferences.getRemember()==false){
+                            UserSimplePreferences.removeEmailPassword();
+                          }
+                          setState(() {
+                            
                           });
                          }),
                          SmallText(text: "Remember me", weight: FontWeightManager.medium,color: ColorManager.boxText,)
@@ -92,7 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                         context.read<LoginBloc>().add(LoginRequested(email: emailController.text.trim(), password: passwordController.text.trim()));
                       }
                     },
-                    child: AuthenticationWidget(text: "Sign in",color: ColorManager.buttonColor,  textColor: ColorManager.white,)),
+                    child: AnimatedAuthenticationWidget(
+                      width: state is LoginLoading?60: MediaQuery.of(context).size.width,
+                     color: ColorManager.buttonColor,
+                    childes:state is LoginLoading?CircularProgressIndicator(color: ColorManager.white,): SmallText(text: "Sign In",color: ColorManager.white,weight: FontWeightManager.semibold,),
+                    )),
                  SizedBox(height: AppHeight.h20,),
                  SmallText(text: "Forgot PassWord ?", size: AppSize.s14,color: ColorManager.boxText,),
                  SizedBox(height: AppHeight.h30,),
@@ -128,24 +147,19 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         );
-          }
-          if(state is LoginLoading){
-            return CircularProgressIndicator();
-          }
-          return Container();
+
         }, listener: (context,state){
           if(state is AuthError){
-            print(state.error);
+           showCustomSnackbar(context, state.error);
           }
           if(state is Authenticated){
-            // Navigator.pushNamed(context, Routes.mainRoute);
-            print("success");
           }
         })
       ),
     );
   }
 }
+
 
 class SignWith extends StatelessWidget {
 String image;

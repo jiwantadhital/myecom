@@ -118,6 +118,33 @@ class AuthenticationWidget extends StatelessWidget {
   }
 }
 
+//animated
+class AnimatedAuthenticationWidget extends StatelessWidget {
+ Color color;
+ Color textColor;
+ double width;
+ Widget childes;
+ AnimatedAuthenticationWidget({ this.color=Colors.white, this.textColor=Colors.black, this.width=double.maxFinite,
+ required this.childes ,
+ });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 600),
+      height: AppHeight.h60,
+      width: width,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Center(
+        child: childes),
+          
+    );
+  }
+}
+
 //textfield
 class TextFieldHelp extends StatelessWidget {
   String hintText;
@@ -127,7 +154,8 @@ class TextFieldHelp extends StatelessWidget {
   TextEditingController? controller;
   var changed;
   var validate;
-  TextFieldHelp({required this.icon, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed, this.validate});
+  var forPassword;
+  TextFieldHelp({required this.icon,this.forPassword, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed, this.validate});
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +168,9 @@ class TextFieldHelp extends StatelessWidget {
       cursorColor: ColorManager.white,
     decoration: InputDecoration(
       filled: true,
-      suffixIcon: Icon(backIcon, color: ColorManager.boxText,),
+      suffixIcon: GestureDetector(
+        onTap: forPassword,
+        child: Icon(backIcon, color: ColorManager.boxText,)),
       hoverColor: ColorManager.white,
       fillColor: ColorManager.textFieldColor.withOpacity(0.2),
       prefixIcon: Icon(icon,color: ColorManager.boxText,), 

@@ -20,6 +20,7 @@ class AuthRepository {
       }
       else if(response.statusCode == 401){
         allModel = jsonDecode(response.body);
+        print(allModel);
       }
     } catch (e) {
       print(e);
