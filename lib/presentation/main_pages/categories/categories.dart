@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/presentation/main_pages/categories/filters.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/details/detail_page.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
@@ -8,6 +9,7 @@ import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -21,6 +23,11 @@ class _CategoriesState extends State<Categories> {
   int myIndex =0;
 
      bool _slowAnimations = false;
+     @override
+  void initState() {
+   context.read<AllProductsBloc>().add(GetProducts());
+    super.initState();
+  }
   ContainerTransitionType _transitionType = ContainerTransitionType.fade;
   @override
   Widget build(BuildContext context) {
@@ -118,7 +125,13 @@ class _CategoriesState extends State<Categories> {
                 }),
               ),
               SizedBox(height: AppHeight.h10,),
-                Container(
+                BlocConsumer<AllProductsBloc,AllProductsState>(
+                  builder: (context,state){
+                    if(state is AllProductsLoading){
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if(state is AllProductsGot){
+                      return Container(
                   padding: EdgeInsets.all(10),
                   height: MediaQuery.of(context).size.height*0.75,
                   width: double.maxFinite,
@@ -204,7 +217,16 @@ class _CategoriesState extends State<Categories> {
         ],
       ),
     ),
-                )
+                );
+                    }
+                    return Center(child: Text("something went wrong"),);
+                  },
+                  listener: (context,state){
+                    if(state is AllProductsError){
+                      print(state.message);
+                    }
+                  },
+                ),
               ],
             ),
           ),

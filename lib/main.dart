@@ -2,12 +2,15 @@
 import 'dart:io';
 
 import 'package:ecommerce/data_provider/data_provider.dart';
+import 'package:ecommerce/data_provider/product_provider.dart';
 import 'package:ecommerce/local_database/shared_prefs.dart';
+import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
 import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:ecommerce/repository/auth_repository.dart';
+import 'package:ecommerce/repository/product_repository.dart';
 import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +40,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoginBloc>(
             create: (BuildContext context) => LoginBloc(
                 authRepository: AuthRepository(dataService: DataProvider())),
+          ),
+          BlocProvider<AllProductsBloc>(
+            create: (BuildContext context) => AllProductsBloc(
+              productRepository: ProductRepository(productProvider: ProductProvider()))..add(GetProducts())
           ),
       ],
       child: MaterialApp(
