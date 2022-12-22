@@ -1,6 +1,5 @@
-import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:ecommerce/presentation/widgets/widgets.dart';
 
 void showCustomSnackbar(context,String message,{bool isError=true,String title="Error"}){
 final snackBar = SnackBar(

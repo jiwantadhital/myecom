@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/carousel.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/categories_part.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/inside/mostpopular.dart';
@@ -13,6 +14,7 @@ import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+       context.read<AllProductsBloc>().add(GetProducts());
     return Scaffold(
       backgroundColor: ColorManager.textFieldColor.withOpacity(0.2),
       body: SafeArea(

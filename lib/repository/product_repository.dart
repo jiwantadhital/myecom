@@ -14,28 +14,23 @@ class ProductRepository {
 
     Future<dynamic> responseBody(
       {required Response response}) async {
-            print("err");
-
-    var allModel;
-    try {
       if (response.statusCode == 200) {
-        print(response.body);
-          allModel= List<ProductModel>.from(jsonDecode(response.body.toString()).map((x) => ProductModel.fromJson(x))) as List;
-      }
-    } catch (e) {
-      print(e);
+      //  final List  allModel= jsonDecode(response.body);
+        //return allModel.map((e) => ProductModel.fromJson(e)).toList();
+        return response.body;
+      
+    } else{
+      throw Exception(response.reasonPhrase);
     }
-        print(allModel);
 
-    return allModel;
   }
 
 
 //login
-  Future<ProductModel> getProductData() async {
+  Future<List<ProductModel>> getProductData() async {
     var productModel;
 
-    productModel =  ProductModel.fromJson(await responseBody(
+    productModel =  productModelFromJson(await responseBody(
         response: await productProvider.getProduct()));
 
     return productModel;

@@ -1,9 +1,11 @@
+import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/presentation/main_pages/categories/categories.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/main_pages/order_page/my_orders.dart';
 import 'package:ecommerce/presentation/main_pages/profile_pages/profile_page.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class BottomBarPage extends StatefulWidget {

@@ -19,11 +19,11 @@ class AllProductsError extends AllProductsState {
   List<Object?> get props => [];
 }
 class AllProductsGot extends AllProductsState {
-  final ProductModel productModel;
+  final List<ProductModel> productModel;
   AllProductsGot({
     required this.productModel,
   });
   @override
   // TODO: implement props
-  List<Object?> get props =>[];
+  List<Object?> get props =>[productModel];
 }

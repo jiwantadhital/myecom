@@ -25,7 +25,6 @@ class _CategoriesState extends State<Categories> {
      bool _slowAnimations = false;
      @override
   void initState() {
-   context.read<AllProductsBloc>().add(GetProducts());
     super.initState();
   }
   ContainerTransitionType _transitionType = ContainerTransitionType.fade;
@@ -148,7 +147,7 @@ class _CategoriesState extends State<Categories> {
             child: GridView.builder(  
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,  
+              itemCount: state.productModel.length,  
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(  
             crossAxisCount: 2,  
             crossAxisSpacing: 20.0,  
@@ -180,7 +179,7 @@ class _CategoriesState extends State<Categories> {
                        SizedBox(height: AppHeight.h5,),
                    Container(
                      width: AppWidth.w150,
-                     child: Center(child: SmallText(text: "Super Shiny 32", color: ColorManager.boxText,weight: FontWeightManager.semibold,)),
+                     child: Center(child: SmallText(text: state.productModel[index].title??"", color: ColorManager.boxText,weight: FontWeightManager.semibold,)),
                    ),
                    SizedBox(height: AppHeight.h5,),
                    Row(
@@ -197,7 +196,7 @@ class _CategoriesState extends State<Categories> {
                        ),
                        Container(
                          width: AppWidth.w100,
-                         child: SmallText(text: "Rs 4400", color: ColorManager.boxText,align: TextAlign.end,size: 15,),
+                         child: SmallText(text: "Rs ${state.productModel[index].price.toString()}", color: ColorManager.boxText,align: TextAlign.end,size: 15,),
                        ),
                      ],
                    ),

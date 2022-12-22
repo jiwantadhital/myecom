@@ -186,9 +186,17 @@ class _DetailPageState extends State<DetailPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    AddSubtractWidget(icons: Icons.remove,),
+                    AddSubtractWidget(icons: Icons.remove,
+                    tap: (){
+                      
+                    },
+                    ),
                     SmallText(text: "1",color: ColorManager.boxText,weight: FontWeightManager.semibold,size: 20,),
-                     AddSubtractWidget(icons: Icons.add,),
+                     AddSubtractWidget(icons: Icons.add,
+                     tap: (){
+
+                     },
+                     ),
                   ],
                 ),
               ),
