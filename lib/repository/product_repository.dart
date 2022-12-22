@@ -26,7 +26,6 @@ class ProductRepository {
   }
 
 
-//login
   Future<List<ProductModel>> getProductData() async {
     var productModel;
 
