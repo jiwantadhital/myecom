@@ -8,6 +8,8 @@ import 'package:http/http.dart';
 
 class ProductRepository {
     final ProductProvider productProvider;
+        var productModel;
+
   ProductRepository({
     required this.productProvider,
   });
@@ -27,7 +29,6 @@ class ProductRepository {
 
 
   Future<List<ProductModel>> getProductData() async {
-    var productModel;
 
     productModel =  productModelFromJson(await responseBody(
         response: await productProvider.getProduct()));

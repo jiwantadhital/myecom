@@ -4,20 +4,25 @@ import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../logic/all_products/bloc/all_products_bloc.dart';
 
 class DescPart extends StatelessWidget {
-  const DescPart({
-    super.key,
+  int index;
+   DescPart({
+    super.key,required this.index
   });
 
   @override
   Widget build(BuildContext context) {
+          final cart = context.read<AllProductsBloc>().productRepository.productModel[index];
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MediumText(text: "Super Shiny 32",),
+          MediumText(text: cart.title,),
           SizedBox(height: AppHeight.h10,),
           Container(
             height: AppHeight.h20,

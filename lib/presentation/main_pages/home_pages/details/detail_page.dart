@@ -1,17 +1,18 @@
+import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
+import 'package:ecommerce/logic/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/main_pages/cart/cart_page.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/details/description_spec_comment.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/details/extra_details_widgets.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
-import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/detail_widget.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key});
+  int index;
+   DetailPage({super.key, required this.index});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -30,8 +31,8 @@ class _DetailPageState extends State<DetailPage> {
      int currentIndex = 0;
      double bottomHeight = 70;
   @override
-  @override
     Widget build(BuildContext context) {
+      final cart = context.read<AllProductsBloc>().productRepository.productModel[widget.index];
       return Scaffold(
         backgroundColor: Colors.transparent,
         body: DefaultTabController(
@@ -163,7 +164,7 @@ class _DetailPageState extends State<DetailPage> {
               child:  TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                DescPart(),
+                DescPart(index: widget.index,),
                 Specifications(),
                 Reviews(),
               ]),
@@ -188,27 +189,71 @@ class _DetailPageState extends State<DetailPage> {
                   children: [
                     AddSubtractWidget(icons: Icons.remove,
                     tap: (){
-                      
+                      setState(() {
+                        theNumber--;
+                      });
                     },
                     ),
-                    SmallText(text: "1",color: ColorManager.boxText,weight: FontWeightManager.semibold,size: 20,),
+                    SmallText(text: theNumber.toString(),color: ColorManager.boxText,weight: FontWeightManager.semibold,size: 20,),
                      AddSubtractWidget(icons: Icons.add,
                      tap: (){
-
+                      setState(() {
+                        theNumber++;
+                      });
                      },
                      ),
                   ],
                 ),
               ),
-              Container(
+              BlocConsumer<CartBloc,CartState>(builder: ((context, state) {
+                if(state is CartAdding){
+                  return Container(
+                height: 50,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: Colors.purple[800],
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Center(child: MediumText(text: "Adding...",colors: ColorManager.white,)),
+              );
+                }
+                return Container(
                 height: 50,
                 width: 150,
                 decoration: BoxDecoration(
                   color: ColorManager.buttonColor,
                   borderRadius: BorderRadius.circular(10)
                 ),
-                child: Center(child: MediumText(text: "Continue",colors: ColorManager.white,)),
-              ),
+                child: Center(child: BlocBuilder<CartBloc,CartState>(builder: ((context, state) {
+                  if(state is CartInitial){
+                    return MediumText(text: "Wait",colors: ColorManager.white,);
+                  }
+                  if(state is CartLoaded){
+                    return GestureDetector(
+                  onTap: (){
+                   final sta= state.cartModelDatabase.map((e) => e.id).toList();
+                    sta.contains(cart.id)?
+                     context.read<CartBloc>().add(UpdateCartEvent(id: cart.id, count: theNumber)):
+                      context.read<CartBloc>().add(AddToCartEvent(id: cart.id, count: theNumber));
+                      context.read<CartBloc>().add(LoadCartEvent());
+                  },
+                  child: MediumText(text: "Add to Cart",colors: ColorManager.white,));
+                  }
+                  return MediumText(text: "......",colors: ColorManager.white,);
+                }))),
+              );
+              }),
+              listener: (context,state){
+                if(state is CartError){
+                  print(state.message);
+                }
+                if(state is CartAdded){
+                  showCustomSnackbar(context, "Added to cart successfully",color: Colors.green);
+                }
+                if(state is CartUpdated){
+                }
+              },
+              )
             ],
           ),
         ),

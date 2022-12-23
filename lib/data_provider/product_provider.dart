@@ -11,7 +11,7 @@ class ProductProvider{
   Future<http.Response> getProduct() async {
     http.Response response = await http
         .get(
-      Uri.parse("$homeUrl/api/product/showAll"),
+      Uri.parse(mockUrl),
       //Required
       headers: <String, String>{
         'Content-Type': 'application/json',

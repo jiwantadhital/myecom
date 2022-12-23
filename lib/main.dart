@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:ecommerce/data_provider/data_provider.dart';
 import 'package:ecommerce/data_provider/product_provider.dart';
+import 'package:ecommerce/local_database/cart/controller/cart_controller.dart';
 import 'package:ecommerce/local_database/shared_prefs.dart';
 import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
+import 'package:ecommerce/logic/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
@@ -44,6 +46,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<AllProductsBloc>(
             create: (BuildContext context) => AllProductsBloc(
               productRepository: ProductRepository(productProvider: ProductProvider()))..add(GetProducts())
+          ),
+          BlocProvider<CartBloc>(
+            create: (BuildContext context) => CartBloc(cartController: CartController())..add(LoadCartEvent())
           ),
       ],
       child: MaterialApp(

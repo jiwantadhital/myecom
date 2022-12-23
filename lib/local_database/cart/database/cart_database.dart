@@ -13,7 +13,7 @@ CartDatabase._init();
 
 Future<Database> get database async{
   if(_database !=null) return _database!;
-  _database = await _initDB('theCart.db');
+  _database = await _initDB('cart.db');
   return _database!;
 }
 
@@ -24,7 +24,7 @@ Future<Database> _initDB(String filePath) async{
 }
 
 Future _createDB(Database db, int version) async{
-  final idType = "INTEGER NOT NULL";
+  final idType = "INTEGER PRIMARY KEY";
   final integerType = "INTEGER NOT NULL";
 
   await db.execute(

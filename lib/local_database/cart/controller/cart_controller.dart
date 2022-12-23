@@ -21,4 +21,15 @@ class CartController{
     final cart = CartModelDatabase(id: id, count: count);
     await CartDatabase.instance.update(cart);
   }
+
+  increase(int number){
+    if(number<20){
+    number ++;
+    }
+  }
+  decrease(int number){
+    if(number!=1){
+    number --;
+    }
+  }
 }

@@ -1,10 +1,51 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'cart_bloc.dart';
 
 abstract class CartState extends Equatable {
-  const CartState();
-  
+ 
+}
+
+class CartInitial extends CartState {
+  @override
+  List<Object> get props => [];
+}
+class CartAdding extends CartState {
+  @override
+  List<Object> get props => [];
+}
+class CartAdded extends CartState {
+
+  @override
+  List<Object> get props => [];
+}
+class CartDeleted extends CartState {
   @override
   List<Object> get props => [];
 }
 
-class CartInitial extends CartState {}
+class CartUpdated extends CartState { 
+  @override
+  List<Object> get props => [];
+}
+class CartUpdating extends CartState {   
+  @override
+  List<Object> get props => [];
+}
+class CartLoaded extends CartState {
+final List<CartModelDatabase> cartModelDatabase;
+  CartLoaded({
+    required this.cartModelDatabase,
+  });
+   
+  @override
+  List<Object> get props => [];
+}
+class CartError extends CartState {
+ String? message;
+  CartError({
+    this.message,
+  });
+   
+  @override
+  List<Object> get props => [];
+}

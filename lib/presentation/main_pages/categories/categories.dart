@@ -156,7 +156,7 @@ class _CategoriesState extends State<Categories> {
               ),  
               itemBuilder: (BuildContext con, int index){  
             return OpenContainer(
-              transitionDuration: Duration(seconds: 1),
+              transitionDuration: Duration(milliseconds: 500),
               transitionType: _transitionType,
               closedBuilder: (BuildContext _, VoidCallback openContainer){
               return  Container(
@@ -208,7 +208,7 @@ class _CategoriesState extends State<Categories> {
             );
               },
                openBuilder: (BuildContext _, VoidCallback __){
-                    return DetailPage();
+                    return DetailPage(index: index,);
                    });
               }
                ),

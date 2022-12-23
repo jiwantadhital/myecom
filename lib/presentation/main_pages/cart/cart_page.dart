@@ -1,3 +1,5 @@
+import 'package:ecommerce/logic/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/widgets/detail_widget.dart';
@@ -5,6 +7,7 @@ import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -36,8 +39,10 @@ class _CartPageState extends State<CartPage> {
       ),
       body: Container(
         margin: EdgeInsets.all(10),
-        child: ListView.builder(
-          itemCount: 3,
+        child: BlocConsumer<CartBloc,CartState>(builder: (context,state){
+          if(state is CartLoaded){
+           return ListView.builder(
+          itemCount: state.cartModelDatabase.length,
           itemBuilder: (context,index){
             return Container(
               margin: EdgeInsets.only(top: 5,bottom: 5),
@@ -54,7 +59,7 @@ class _CartPageState extends State<CartPage> {
                     height: 90,
                     width: 90,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage("https://in-exstatic-vivofs.vivo.com/gdHFRinHEMrj3yPG/1657192245628/203773b7c46bbb1ba4e7c355fb048842.jpg"),
+                      image: DecorationImage(image: NetworkImage("https://imagekit.io/blog/content/images/2019/12/image-optimization.jpg"),
                       fit: BoxFit.cover
                       ),
                       borderRadius: BorderRadius.circular(10)
@@ -69,21 +74,38 @@ class _CartPageState extends State<CartPage> {
                         SizedBox(height: 10,),
                         SmallText(text: "Vivo G45",color: ColorManager.boxText,weight: FontWeightManager.bold,size: 15,),
                         SizedBox(height: 5,),
-                        SmallText(text: "Rs 4400",color: ColorManager.boxText,size: 15,weight: FontWeightManager.semibold,),
+                        SmallText(text: "Rs 678",color: ColorManager.boxText,size: 15,weight: FontWeightManager.semibold,),
                         SizedBox(height: 10,),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Container(
-                                        width: MediaQuery.of(context).size.width*0.35,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          children: [
-                                            AddSubtractWidget(icons: Icons.remove,height: 25,width: 25,iSize: 15,),
-                                            SmallText(text: "1",color: ColorManager.boxText,weight: FontWeightManager.semibold,size: 20,),
-                                             AddSubtractWidget(icons: Icons.add,height: 25,width: 25,iSize: 15),
-                                          ],
-                                        ),
-                                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              child: Icon(Icons.delete)),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Container(
+                                            width: MediaQuery.of(context).size.width*0.35,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              children: [
+                                                AddSubtractWidget(icons: Icons.remove,height: 25,width: 25,iSize: 15,tap: (){
+                                                  state.cartModelDatabase[index].count<2?context.read<CartBloc>().add(CartDeleteEvent(id: state.cartModelDatabase[index].id)):
+                                                  context.read<CartBloc>().add(UpdateCartEvent(id: state.cartModelDatabase[index].id, count: state.cartModelDatabase[index].count-1));
+                                                                        context.read<CartBloc>().add(LoadCartEvent());
+                                                },),
+                                                SmallText(text: state.cartModelDatabase[index].count.toString(),color: ColorManager.boxText,weight: FontWeightManager.semibold,size: 20,),
+                                                 AddSubtractWidget(icons: Icons.add,height: 25,width: 25,iSize: 15,
+                                                 tap: (){
+                                                  state.cartModelDatabase[index].count>9?showCustomSnackbar(context, "You cannot add more than 10 products"):
+                                                  context.read<CartBloc>().add(UpdateCartEvent(id: state.cartModelDatabase[index].id, count: state.cartModelDatabase[index].count+1));
+                                                                        context.read<CartBloc>().add(LoadCartEvent());
+                                                 },
+                                                 ),
+                                              ],
+                                            ),
+                                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -92,7 +114,18 @@ class _CartPageState extends State<CartPage> {
               ),
             );
           },
-        ),
+        );
+          }
+          if(state is CartInitial){
+            return CircularProgressIndicator();
+          }
+          if(state is CartError){
+            return Text(state.message.toString());
+          }
+          return Center(child: Text("Something went wrong"));
+        }, listener: (context,state){
+
+        })
       ),
       bottomNavigationBar: Container(
         height: 80,
