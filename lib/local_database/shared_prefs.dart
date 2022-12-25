@@ -33,7 +33,7 @@ class UserSimplePreferences {
   static Future setRemember(bool remember) async {
     await _preferences?.setBool(_remember, remember);
   }
-  userLoggedIn(){
+ static userLoggedIn(){
     return _preferences?.containsKey(_token);
   }
   static String? getUsername() => _preferences?.getString(_username);

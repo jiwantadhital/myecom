@@ -26,12 +26,17 @@ Future<Database> _initDB(String filePath) async{
 Future _createDB(Database db, int version) async{
   final idType = "INTEGER PRIMARY KEY";
   final integerType = "INTEGER NOT NULL";
+  final textType = "TEXT NOT NULL";
+  final doubleType = "DOUBLE NOT NULL";
 
   await db.execute(
     '''
 CREATE TABLE $tableCart(
   ${CartFields.id} $idType,
-  ${CartFields.count} $integerType
+  ${CartFields.count} $integerType,
+  ${CartFields.image} $textType,
+  ${CartFields.title} $textType,
+  ${CartFields.price} $doubleType
 )
 '''
   );

@@ -12,13 +12,13 @@ class CartController{
     await CartDatabase.instance.delete(id);
   }
 
-  Future createCart(id,count)async{
-    final cart = CartModelDatabase(id: id, count: count);
+  Future createCart(id,count,image,title,price)async{
+    final cart = CartModelDatabase(id: id, count: count,image: image,price: price,title: title);
     await CartDatabase.instance.create(cart);
   }
 
-  Future updateCart(id,count)async{
-    final cart = CartModelDatabase(id: id, count: count);
+  Future updateCart(id,count,image,title,price)async{
+    final cart = CartModelDatabase(id: id, count: count,image: image,price: price,title: title);
     await CartDatabase.instance.update(cart);
   }
 

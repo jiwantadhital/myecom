@@ -2,8 +2,6 @@ import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 

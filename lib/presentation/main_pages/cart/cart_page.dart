@@ -1,12 +1,12 @@
+import 'package:ecommerce/local_database/shared_prefs.dart';
 import 'package:ecommerce/logic/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/widgets/detail_widget.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
+import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartPage extends StatefulWidget {
@@ -67,20 +67,26 @@ class _CartPageState extends State<CartPage> {
                   ),
                   SizedBox(width: 10,),
                   Container(
-                    width: MediaQuery.of(context).size.width*0.55,
+                    width: MediaQuery.of(context).size.width*0.62,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10,),
-                        SmallText(text: "Vivo G45",color: ColorManager.boxText,weight: FontWeightManager.bold,size: 15,),
+                        SmallText(text: state.cartModelDatabase[index].title,color: ColorManager.boxText,weight: FontWeightManager.bold,size: 15,),
                         SizedBox(height: 5,),
-                        SmallText(text: "Rs 678",color: ColorManager.boxText,size: 15,weight: FontWeightManager.semibold,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SmallText(text: "Rs. ${state.cartModelDatabase[index].price.toString()}",color: ColorManager.boxText,size: 15,weight: FontWeightManager.semibold,),
+                           GestureDetector(
+                              child: Icon(Icons.delete)),
+                          ],
+                        ),
                         SizedBox(height: 10,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
-                              child: Icon(Icons.delete)),
+                          
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
@@ -90,15 +96,16 @@ class _CartPageState extends State<CartPage> {
                                               children: [
                                                 AddSubtractWidget(icons: Icons.remove,height: 25,width: 25,iSize: 15,tap: (){
                                                   state.cartModelDatabase[index].count<2?context.read<CartBloc>().add(CartDeleteEvent(id: state.cartModelDatabase[index].id)):
-                                                  context.read<CartBloc>().add(UpdateCartEvent(id: state.cartModelDatabase[index].id, count: state.cartModelDatabase[index].count-1));
-                                                                        context.read<CartBloc>().add(LoadCartEvent());
+                                                  context.read<CartBloc>().add(UpdateCartEvent(id: state.cartModelDatabase[index].id, count: state.cartModelDatabase[index].count-1,image: state.cartModelDatabase[index].image,price: state.cartModelDatabase[index].price,title: state.cartModelDatabase[index].title));
+                                                   context.read<CartBloc>().add(LoadCartEvent());
+                                       
                                                 },),
                                                 SmallText(text: state.cartModelDatabase[index].count.toString(),color: ColorManager.boxText,weight: FontWeightManager.semibold,size: 20,),
                                                  AddSubtractWidget(icons: Icons.add,height: 25,width: 25,iSize: 15,
                                                  tap: (){
                                                   state.cartModelDatabase[index].count>9?showCustomSnackbar(context, "You cannot add more than 10 products"):
-                                                  context.read<CartBloc>().add(UpdateCartEvent(id: state.cartModelDatabase[index].id, count: state.cartModelDatabase[index].count+1));
-                                                                        context.read<CartBloc>().add(LoadCartEvent());
+                                                  context.read<CartBloc>().add(UpdateCartEvent(id: state.cartModelDatabase[index].id, count: state.cartModelDatabase[index].count+1,image: state.cartModelDatabase[index].image,price: state.cartModelDatabase[index].price,title: state.cartModelDatabase[index].title));
+                                                  context.read<CartBloc>().add(LoadCartEvent());
                                                  },
                                                  ),
                                               ],
@@ -124,7 +131,6 @@ class _CartPageState extends State<CartPage> {
           }
           return Center(child: Text("Something went wrong"));
         }, listener: (context,state){
-
         })
       ),
       bottomNavigationBar: Container(
@@ -140,7 +146,16 @@ class _CartPageState extends State<CartPage> {
                   SizedBox(height: 10,),
                   SmallText(text: "Total:",color: ColorManager.boxText,),
                   SizedBox(height: 5,),
-                  SmallText(text: "330000",color: ColorManager.boxText,weight: FontWeightManager.semibold,),
+                  BlocBuilder<CartBloc,CartState>(builder: (context,state){
+                    if(state is CartLoaded){
+               
+                      return  SmallText(text: "Rs. ${state.total}",color: ColorManager.boxText,weight: FontWeightManager.semibold,);
+                    }
+                    if(state is CartInitial){
+                      return  SmallText(text: "Calculating",color: ColorManager.boxText,weight: FontWeightManager.semibold,);
+                    }
+                     return  SmallText(text: "Rs. 0",color: ColorManager.boxText,weight: FontWeightManager.semibold,);
+                  }),
                 ],
               ),
             ),
@@ -151,7 +166,11 @@ class _CartPageState extends State<CartPage> {
                 color: ColorManager.buttonColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(child: SmallText(text: "Buy Now",weight: FontWeightManager.semibold,)),
+              child: Center(child: GestureDetector(
+                onTap: (){
+                  UserSimplePreferences.userLoggedIn()?print("Logged in"):Navigator.pushNamed(context, Routes.social);
+                },
+                child: SmallText(text: "Buy Now",weight: FontWeightManager.semibold,))),
             ),
           ],
         ),

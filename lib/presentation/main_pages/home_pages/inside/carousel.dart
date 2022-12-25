@@ -60,8 +60,9 @@ class _CarouselPartState extends State<CarouselPart> {
              ),
           ),
             Positioned(
-    top: size.width < 365? MediaQuery.of(context).size.height*0.20:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
+    // top: size.width < 365? MediaQuery.of(context).size.height*0.20:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
     left: MediaQuery.of(context).size.width*0.35,
+    top: MediaQuery.of(context).size.height*0.18,
     child:  DotsIndicator(
         dotsCount: counts,
           position: currentcount.toDouble(),

@@ -33,8 +33,12 @@ class CartUpdating extends CartState {
 }
 class CartLoaded extends CartState {
 final List<CartModelDatabase> cartModelDatabase;
+int total;
+int countTotal;
   CartLoaded({
     required this.cartModelDatabase,
+    required this.total,
+    required this.countTotal,
   });
    
   @override

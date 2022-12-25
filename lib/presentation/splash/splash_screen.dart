@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _timer = Timer(Duration(seconds: 4), _goNext);
   }
   _goNext(){
-    Navigator.pushReplacementNamed(context, Routes.social);
+    Navigator.pushReplacementNamed(context, Routes.bottomBarRoute);
   }
 
   @override

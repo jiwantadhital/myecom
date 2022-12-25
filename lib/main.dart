@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: Colors.black.withOpacity(0)),
         ),
-        home: BottomBarPage(),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        //   initialRoute: Routes.splashRoute,
+        // home: BottomBarPage(),
+        onGenerateRoute: RouteGenerator.getRoute,
+          initialRoute: Routes.splashRoute,
       ),
     );
   }
