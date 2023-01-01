@@ -25,7 +25,7 @@ class AuthRepository {
     } catch (e) {
       print(e);
     }
-        print(response.statusCode);
+        print(response.body);
 
     return allModel;
   }

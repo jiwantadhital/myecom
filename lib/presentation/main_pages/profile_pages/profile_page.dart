@@ -1,10 +1,14 @@
+import 'package:ecommerce/local_database/shared_prefs.dart';
+import 'package:ecommerce/logic/user_detail/bloc/user_detail_bloc.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
+import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -31,7 +35,51 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 height: MediaQuery.of(context).size.width*0.4,
                 width: double.maxFinite,
-                child: Stack(
+                child:
+                BlocBuilder<UserDetailBloc,UserDetailState>(builder: (context,state){
+                       if(state is UserDetailLoading){
+                        return Center(child: CircularProgressIndicator());
+                       }
+                       if(state is UserDetailGot){
+                        return  Stack(
+                  alignment: Alignment.topCenter,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(width: 7,color: ColorManager.white),
+                        image: DecorationImage(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2WPSnSP44UbxEKVUsVg8AT2Sf43whBNwsHw&usqp=CAU"),fit: BoxFit.cover)
+                      ),
+                    ),
+                    Positioned(
+                      top: 60,
+                      left: MediaQuery.of(context).size.width*0.53,
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: ColorManager.buttonColor
+                        ),
+                        child: Icon(Icons.edit,color: ColorManager.white,size: 15,),
+                      ),
+                      ),
+        
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SmallText(text: state.userModel.data!.name??"User Name",color: ColorManager.boxText,weight: FontWeightManager.bold,),
+                            SmallText(text: state.userModel.data!.phone??"Phone Number",color: ColorManager.boxText,weight: FontWeightManager.regular,),
+                          ],
+                        ))
+                  ],
+                );
+                       }
+                       return  Stack(
                   alignment: Alignment.topCenter,
                   children: [
                     Container(
@@ -67,7 +115,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ))
                   ],
-                ),
+                );
+                       }),
+                
               ),
               SizedBox(height: AppHeight.h30,),
               Column(
@@ -92,7 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: AppHeight.h10,),
                   ProfileBoxes(fIcon: Icons.share,sIcon: Icons.arrow_forward_ios,boxText: "Invite",),
                   SizedBox(height: AppHeight.h10,),
-                  ProfileBoxes(fIcon: Icons.logout,boxText: "Logout",color: Colors.red,
+                 UserSimplePreferences.userLoggedIn()? ProfileBoxes(fIcon: Icons.logout,boxText: "Logout",color: Colors.red,
                   tap: (){
                     showModalBottomSheet<void>(
                           isScrollControlled: true,
@@ -125,14 +175,21 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   child: Center(child: SmallText(text: "Cancel",size: 15,weight: FontWeightManager.semibold,)),
                 ),
-                Container(
-                  height: AppHeight.h40,
-                  width: MediaQuery.of(context).size.width*0.35,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: ColorManager.buttonColor,
+                GestureDetector(
+                  onTap: (){
+                    UserSimplePreferences.logout();
+                    Navigator.pushNamed(context, Routes.bottomBarRoute);
+                    context.read<UserDetailBloc>()..add(UserDetailData());
+                  },
+                  child: Container(
+                    height: AppHeight.h40,
+                    width: MediaQuery.of(context).size.width*0.35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: ColorManager.buttonColor,
+                    ),
+                    child: Center(child: SmallText(text: "Yes",size: 15,weight: FontWeightManager.semibold,)),
                   ),
-                  child: Center(child: SmallText(text: "Yes",size: 15,weight: FontWeightManager.semibold,)),
                 )
               ],
              )
@@ -143,7 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                     
                   },
-                  ),
+                  ):Container(),
                   SizedBox(height: AppHeight.h10,),
                 
                 ],

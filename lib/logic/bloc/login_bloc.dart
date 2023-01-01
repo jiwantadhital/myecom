@@ -30,7 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           }
       }
       catch(e){
-         emit(AuthError(error: "Something went wrong"));
+         emit(AuthError(error: e.toString()));
         emit(UnAuthenticated());
 
       }

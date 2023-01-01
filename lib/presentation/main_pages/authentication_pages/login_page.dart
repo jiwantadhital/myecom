@@ -153,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
            showCustomSnackbar(context, state.error);
           }
           if(state is Authenticated){
+             showCustomSnackbar(context, "Success");
           }
         })
       ),

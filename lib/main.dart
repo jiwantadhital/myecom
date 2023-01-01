@@ -8,6 +8,7 @@ import 'package:ecommerce/local_database/shared_prefs.dart';
 import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
 import 'package:ecommerce/logic/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce/logic/user_detail/bloc/user_detail_bloc.dart';
 import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
@@ -16,6 +17,8 @@ import 'package:ecommerce/repository/product_repository.dart';
 import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'presentation/main_pages/shipping_address/shipping_address.dart';
 
  class MyHttpOverrides extends HttpOverrides{
   @override
@@ -50,6 +53,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<CartBloc>(
             create: (BuildContext context) => CartBloc(cartController: CartController())..add(LoadCartEvent())
           ),
+          BlocProvider<UserDetailBloc>(
+            create: (BuildContext context) => UserDetailBloc(userDetailsRepo: UserDetailsRepo(userAuthenticated: UserAuthenticated()))..add(UserDetailData())
+          ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -59,9 +65,9 @@ class MyApp extends StatelessWidget {
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: Colors.black.withOpacity(0)),
         ),
-        // home: BottomBarPage(),
-        onGenerateRoute: RouteGenerator.getRoute,
-          initialRoute: Routes.splashRoute,
+        home: ShippingAddress(),
+        // onGenerateRoute: RouteGenerator.getRoute,
+        //   initialRoute: Routes.splashRoute,
       ),
     );
   }

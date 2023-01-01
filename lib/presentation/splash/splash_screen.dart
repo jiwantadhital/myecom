@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:ecommerce/logic/user_detail/bloc/user_detail_bloc.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 

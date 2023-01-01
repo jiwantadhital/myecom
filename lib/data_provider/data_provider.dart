@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class DataProvider{
     var testUrl = 'http://127.0.0.1:8000';
-    var homeUrl = "http://192.168.100.74:8000";
+    var homeUrl = "http://192.168.18.62:8000";
   Future<http.Response> authenticate(
       {required String email,
       required String password,
@@ -31,3 +31,5 @@ class DataProvider{
     return response;
   }
 }
+
+
