@@ -45,7 +45,9 @@ class _LoginPageState extends State<LoginPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  TopSection(),
+                  TopSection(tap: (){
+                  Navigator.pop(context);
+                  },),
                   BigText(text: "Login", colors: ColorManager.boxText,),
                   SizedBox(height: AppHeight.h30,),
                   TextFieldHelp(hintText: "Email",icon: Icons.email,hide:false,controller: emailController,
@@ -154,6 +156,7 @@ class _LoginPageState extends State<LoginPage> {
           }
           if(state is Authenticated){
              showCustomSnackbar(context, "Success");
+             Navigator.pushReplacementNamed(context, Routes.shippingAddress);
           }
         })
       ),

@@ -127,7 +127,7 @@ class _CartPageState extends State<CartPage> {
             return CircularProgressIndicator();
           }
           if(state is CartError){
-            return Text(state.message.toString());
+            return Center(child: Text("Something went wrong"));
           }
           return Center(child: Text("Something went wrong"));
         }, listener: (context,state){
@@ -168,7 +168,7 @@ class _CartPageState extends State<CartPage> {
               ),
               child: Center(child: GestureDetector(
                 onTap: (){
-                  UserSimplePreferences.userLoggedIn()?print("Logged in"):Navigator.pushNamed(context, Routes.social);
+                  UserSimplePreferences.userLoggedIn()?Navigator.pushNamed(context, Routes.shippingAddress):Navigator.pushNamed(context, Routes.social);
                 },
                 child: SmallText(text: "Buy Now",weight: FontWeightManager.semibold,))),
             ),

@@ -23,7 +23,11 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                TopSection(text: "Create New Password",),
+                TopSection(text: "Create New Password",
+                tap: (){
+                 Navigator.pop(context);
+                },
+                ),
                 SizedBox(height: AppHeight.h10,),
                 Container(
                   height: MediaQuery.of(context).size.height*0.25,

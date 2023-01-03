@@ -26,7 +26,9 @@ class _ProfileFillState extends State<ProfileFill> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                TopSection(text: "Fill Your Profile",),
+                TopSection(text: "Fill Your Profile",tap: (){
+                                Navigator.pop(context);
+                },),
                 SizedBox(height: AppHeight.h10,),
                 Container(
                   height: MediaQuery.of(context).size.height*0.26,                

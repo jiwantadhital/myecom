@@ -22,7 +22,9 @@ class _FingerPrintState extends State<FingerPrint> {
           margin: EdgeInsets.all(10),
           child: Column(
             children: [
-              TopSection(text: "Set your fingerprint",),
+              TopSection(text: "Set your fingerprint",tap: (){
+                              Navigator.pop(context);
+              },),
               SizedBox(height: AppHeight.h40,),
               SmallText(text: "Add fingerprint to make your account more secure.",color: ColorManager.boxText,weight: FontWeightManager.light,),
               SizedBox(height: AppHeight.h40,),

@@ -13,7 +13,7 @@ CartDatabase._init();
 
 Future<Database> get database async{
   if(_database !=null) return _database!;
-  _database = await _initDB('cart.db');
+  _database = await _initDB('theCart1.db');
   return _database!;
 }
 

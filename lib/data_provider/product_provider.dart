@@ -12,7 +12,7 @@ class ProductProvider{
   Future<http.Response> getProduct(backUrl) async {
     http.Response response = await http
         .get(
-      Uri.parse(homeUrl+backUrl),
+      Uri.parse(mockUrl),
       //Required
       headers: <String, String>{
         'Content-Type': 'application/json',

@@ -27,7 +27,9 @@ class _RegisterPageState extends State<RegisterPage> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                TopSection(),
+                TopSection(tap: (){
+                                Navigator.pop(context);
+                },),
                 BigText(text: "Register", colors: ColorManager.boxText,),
                 SizedBox(height: AppHeight.h30,),
                 TextFieldHelp(hintText: "Email",icon: Icons.email,),

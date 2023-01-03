@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 //back icon and top section every page
 class TopSection extends StatelessWidget {
  String? text;
-TopSection({this.text});
+ var tap;
+TopSection({this.text,required this.tap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +17,7 @@ TopSection({this.text});
       child: Row(
         children: [
           GestureDetector(
-            onTap: (){
-              Navigator.pop(context);
-            },
+           onTap: tap,
             child: Icon(Icons.arrow_back_rounded, color: ColorManager.boxText,)),
           SizedBox(width: AppWidth.w20,),
           MediumText(text: text,),

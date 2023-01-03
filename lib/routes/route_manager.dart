@@ -4,6 +4,7 @@ import 'package:ecommerce/presentation/main_pages/authentication_pages/register_
 import 'package:ecommerce/presentation/main_pages/authentication_pages/social_login.dart';
 import 'package:ecommerce/presentation/main_pages/cart/cart_page.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
+import 'package:ecommerce/presentation/main_pages/shipping_address/shipping_address.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class Routes{
   static const String bottomBarRoute = "/bottomBar";
   static const String recentRoute = "/recent";
   static const String cartRoute = "/cart";
+  static const String shippingAddress = "/shippingAddress";
 }
 
 class RouteGenerator{
@@ -37,6 +39,8 @@ class RouteGenerator{
       return MaterialPageRoute(builder: (_)=>SocialLogin());
               case Routes.cartRoute:
       return MaterialPageRoute(builder: (_)=>CartPage());
+      case Routes.shippingAddress:
+      return MaterialPageRoute(builder: (_)=>ShippingAddress());
       default:
       return unDefinedRoute();
     }

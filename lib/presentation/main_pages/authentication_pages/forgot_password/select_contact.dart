@@ -27,7 +27,9 @@ class _SelectContactState extends State<SelectContact> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                TopSection(text: "Forgot Password",),
+                TopSection(text: "Forgot Password",tap: (){
+                                Navigator.pop(context);
+                },),
                 SizedBox(height: AppHeight.h20,),
                 Container(
                   height: MediaQuery.of(context).size.height*0.25,

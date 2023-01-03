@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-final String tableCart = "cart";
+final String tableCart = "theCart1";
 
 class CartFields{
 static final List<String> values = [id,count,price,title,image];
@@ -50,6 +50,6 @@ Map<String, Object?> toJson() => {
   CartFields.count : count,
   CartFields.image : image,
   CartFields.title : title,
-  CartFields.price : price,
+  CartFields.price : price
 };
 }

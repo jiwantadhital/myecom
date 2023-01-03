@@ -66,8 +66,8 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.black.withOpacity(0)),
         ),
         home: ShippingAddress(),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        //   initialRoute: Routes.splashRoute,
+      //   onGenerateRoute: RouteGenerator.getRoute,
+      //     initialRoute: Routes.splashRoute,
       ),
     );
   }

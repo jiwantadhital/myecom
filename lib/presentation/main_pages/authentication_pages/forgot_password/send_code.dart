@@ -61,7 +61,9 @@ class _SendCodeScreenState extends State<SendCode> {
               width: MediaQuery.of(context).size.width,
               child: ListView(
                 children: <Widget>[
-                  TopSection(text: "Forgot Password",),
+                  TopSection(text: "Forgot Password",tap: (){
+                                  Navigator.pop(context);
+                  },),
                   const SizedBox(height: 30),
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 3,

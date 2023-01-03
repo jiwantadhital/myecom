@@ -284,7 +284,7 @@ class _DetailPageState extends State<DetailPage> {
                                 ? context.read<CartBloc>().add(UpdateCartEvent(
                                     id: cart.id,
                                     count: theNumber,
-                                    image: cart.images[0].imageName,
+                                    image: cart.images[0].imageName.toString(),
                                     title: cart.title,
                                     price: cart.price.toDouble()))
                                 : context.read<CartBloc>().add(AddToCartEvent(
@@ -300,10 +300,21 @@ class _DetailPageState extends State<DetailPage> {
                             colors: ColorManager.white,
                           ));
                     }
-                    return MediumText(
-                      text: "......",
-                      colors: ColorManager.white,
-                    );
+                     return GestureDetector(
+                          onTap: () {
+                           context.read<CartBloc>().add(AddToCartEvent(
+                                    id: cart.id,
+                                    count: theNumber,
+                                    image: cart.images[0].imageName.toString(),
+                                    title: cart.title,
+                                    price: cart.price.toDouble()));
+                            context.read<CartBloc>().add(LoadCartEvent());
+                            context.read<CartBloc>().add(LoadCartEvent());
+                          },
+                          child: MediumText(
+                            text: "Add to Cart",
+                            colors: ColorManager.white,
+                          ));
                   }))),
                 );
               }),

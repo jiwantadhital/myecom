@@ -22,14 +22,6 @@ class CartController{
     await CartDatabase.instance.update(cart);
   }
 
-  increase(int number){
-    if(number<20){
-    number ++;
-    }
-  }
-  decrease(int number){
-    if(number!=1){
-    number --;
-    }
-  }
+
+  
 }
