@@ -1,3 +1,5 @@
+String apiKey = "AIzaSyBNasYCZUrd1eGeIxWDUfDaOez1D30Wr-8";
+
 class AppMargin{
   static const double m8 = 8.0;
   static const double m10 = 10.0;
@@ -101,3 +103,4 @@ class AppWidth{
   static const double w200 = 200.0;
   static const double w250 = 250.0;
 }
+

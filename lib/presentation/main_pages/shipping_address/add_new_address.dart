@@ -1,3 +1,4 @@
+import 'package:ecommerce/presentation/main_pages/shipping_address/address_search.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,20 @@ class _AddAddressState extends State<AddAddress> {
         margin: EdgeInsets.all(10),
         child: Column(
           children: [
-            TextFieldHelp(icon: Icons.home, hintText: "Home")
+            TextFieldHelp(icon: Icons.home, hintText: "Home"),
+            SizedBox(height: 20,),
+            GestureDetector(
+              onTap: (){
+                 showModalBottomSheet<void>(
+                          isScrollControlled: true,
+                          enableDrag: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                    return AddressSearch();
+                  },
+                    );
+              },
+              child: SmallText(text: "Tap Here",color: Colors.black,))
           ],
         ),
       )),
