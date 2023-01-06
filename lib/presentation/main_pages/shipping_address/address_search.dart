@@ -4,6 +4,8 @@ import 'package:ecommerce/presentation/main_pages/shipping_address/models/place_
 import 'package:ecommerce/presentation/resources/values.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class AddressSearch extends StatefulWidget {
   const AddressSearch({super.key});
@@ -13,15 +15,17 @@ class AddressSearch extends StatefulWidget {
 }
 
 class _AddressSearchState extends State<AddressSearch> {
+  bool isLoading = false;
   List<AutocompletePrediction> auto = [];
   var searchController = TextEditingController();
   void placeAutocomplete(String query)async{
+    isLoading = true;
     Uri uri = Uri.https(
       "maps.googleapis.com",
       '/maps/api/place/autocomplete/json',
       {
         "input": query,
-        "key": apiKey
+        "key": apiKey,
       }
     );
     String? response = await AddressNetwork.fetchUrl(uri);
@@ -29,6 +33,10 @@ class _AddressSearchState extends State<AddressSearch> {
     PlaceAutocompleteResponse result = PlaceAutocompleteResponse.parseAutocompleteResult(response);
     if(result.predictions != null){
       auto = result.predictions!;
+      isLoading = false;
+      setState(() {
+        
+      });
     }
     }
   }
@@ -56,7 +64,7 @@ class _AddressSearchState extends State<AddressSearch> {
             backIcon: Icons.remove_circle,
             controller: searchController,
             icon: Icons.search, hintText: "Search your address",changed: (val)async{
-              placeAutocomplete(val);
+              placeAutocomplete("Nepal ${val}");
               setState(() {
                 
               });
@@ -64,7 +72,12 @@ class _AddressSearchState extends State<AddressSearch> {
           
           ),
           SizedBox(height: 10,),
-          ListView.builder(
+         isLoading == true? Center(child: Padding(
+           padding: const EdgeInsets.only(top: 10,bottom: 5),
+           child: SpinKitFadingCircle(
+              color: Colors.purple,
+            ),
+         ),): ListView.builder(
             itemCount: auto.length,
             shrinkWrap: true,
             itemBuilder: (context,index){

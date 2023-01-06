@@ -154,15 +154,70 @@ class TextFieldHelp extends StatelessWidget {
   var changed;
   var validate;
   var forPassword;
-  TextFieldHelp({required this.icon,this.forPassword, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed, this.validate});
+  bool enable;
+  TextFieldHelp({required this.icon,this.forPassword, required this.hintText, this.controller, this.backIcon, this.hide=false,this.changed, this.validate, this.enable=true});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enable,
       validator: validate,
       onChanged: changed,
       obscureText: hide,
       controller: controller,
+      style: TextStyle(color: ColorManager.boxText),
+      cursorColor: ColorManager.white,
+    decoration: InputDecoration(
+      filled: true,
+      suffixIcon: GestureDetector(
+        onTap: forPassword,
+        child: Icon(backIcon, color: ColorManager.boxText,)),
+      hoverColor: ColorManager.white,
+      fillColor: ColorManager.textFieldColor.withOpacity(0.2),
+      prefixIcon: Icon(icon,color: ColorManager.boxText,), 
+     hintText: hintText,
+      hintStyle: TextStyle(
+        color: ColorManager.boxText.withOpacity(0.5),
+      ),
+      border: InputBorder.none,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(          
+          width: 1,color: ColorManager.boxBorder,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: ColorManager.boxBorderGrey,
+        )
+      )
+    ),
+    );
+  }
+}
+
+
+//disaled textField
+class DisabledTextFieldHelp extends StatelessWidget {
+  String hintText;
+  IconData icon;
+  IconData? backIcon;
+  bool hide = false;
+  var changed;
+  var validate;
+  var forPassword;
+  bool enable;
+  String? iValue;
+  DisabledTextFieldHelp({this.iValue,required this.icon,this.forPassword, required this.hintText,this.backIcon, this.hide=false,this.changed, this.validate, this.enable=true});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      initialValue: iValue,
+      enabled: enable,
+      validator: validate,
+      onChanged: changed,
+      obscureText: hide,
       style: TextStyle(color: ColorManager.boxText),
       cursorColor: ColorManager.white,
     decoration: InputDecoration(
