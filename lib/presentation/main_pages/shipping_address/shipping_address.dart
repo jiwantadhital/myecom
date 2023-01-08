@@ -1,3 +1,4 @@
+import 'package:ecommerce/logic/address_bloc/bloc/address_bloc_bloc.dart';
 import 'package:ecommerce/presentation/main_pages/shipping_address/add_new_address.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce/routes/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShippingAddress extends StatefulWidget {
   const ShippingAddress({super.key});
@@ -17,10 +19,17 @@ class ShippingAddress extends StatefulWidget {
 
 class _ShippingAddressState extends State<ShippingAddress> {
 
-bool address = false;
+bool address = true;
 int changedIndex = 0;
+bool add=true;
+@override
+  void initState() {
+    context.read<AddressBlocBloc>()..add(LoadAddressEvent());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+        context.read<AddressBlocBloc>().add(LoadAddressEvent());
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -34,10 +43,24 @@ int changedIndex = 0;
                 },
               ),
               SizedBox(height: AppHeight.h10,),
-              Expanded(
+              BlocConsumer<AddressBlocBloc,AddressBlocState>(
+                listener: (context,state){
+                  if(state is AddressLoaded){
+                     state.addressModelDatabase.length>4?add=false:add=true;
+                       setState(() {
+                      
+                    });
+                  }
+                },
+                builder: (context,state){
+                  if(state is AddressBlocInitial){
+                    return Center(child: CircularProgressIndicator(),);
+                  }
+                  if(state is AddressLoaded){
+                    return state.addressModelDatabase.isNotEmpty? Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: state.addressModelDatabase.length,
                   itemBuilder: ((context, index) {
                   return Container(
                     margin: EdgeInsets.only(top: 5,bottom: 5),
@@ -64,9 +87,9 @@ int changedIndex = 0;
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SmallText(text: "Home",weight: FontWeightManager.bold,size: 18,color: Colors.black,),
+                              SmallText(text: state.addressModelDatabase[index].title,weight: FontWeightManager.bold,size: 18,color: Colors.black,),
                                                     SizedBox(height: 10,),
-                              SmallText(text: "Kathmandu, Narefat, Balkumari",weight: FontWeightManager.light,size: 15,color: Colors.black,lines: 2,),
+                              SmallText(text: state.addressModelDatabase[index].address,weight: FontWeightManager.light,size: 15,color: Colors.black,lines: 2,),
                             ],
                           ),
                         ),
@@ -77,19 +100,30 @@ int changedIndex = 0;
                               address = val;
                             setState(() {    
                             });
-                            print(index);
                           }),
                         )
                       ],
                     ),
                   );
                 })),
+              ):Center(child: SmallText(text: "Please Add Your Address",color: Colors.black,),);
+                  }
+                  if(state is AddressError){
+                    return Center(child: SmallText(text: state.message.toString(),color: Colors.black,),);
+                  }
+                  return Center(child: SmallText(text: "Wrong",color: Colors.black,),);
+                },
               ),
+              SizedBox(height: 20,),
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                       return AddAddress();
-                    }));
+                    })).whenComplete(() {
+                      setState(() {
+                        print("done");
+                      });
+                    });
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 20,right: 20),
@@ -99,7 +133,7 @@ int changedIndex = 0;
                       color: ColorManager.boxBorderGrey.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    child: Center(child: SmallText(text: "Add new Address",size: 15,weight: FontWeightManager.semibold,color: Colors.black,),),
+                    child:add==true? Center(child: SmallText(text: "Add new Address",size: 15,weight: FontWeightManager.semibold,color: Colors.black,),):Center(child: SmallText(text: "Cannot add more than 5 address",size: 15,weight: FontWeightManager.semibold,color: Colors.black,)),
                   ),
                 )
             ],

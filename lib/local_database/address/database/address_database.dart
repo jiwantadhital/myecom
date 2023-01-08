@@ -11,7 +11,7 @@ AddressDatabase._init();
 
 Future<Database> get database async{
   if(_database != null) return _database!;
-  _database = await _initDB("address.db");
+  _database = await _initDB("theAddress.db");
   return _database!;
 }
 
@@ -22,7 +22,7 @@ Future<Database> _initDB(String filePath)async{
 }
 
 Future _createDB(Database db, int version)async{
-  final idType = "INTEGER PRIMARY KEY";
+  final idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
   final integerType = "INTEGER NOT NULL";
   final textType = "TEXT NOT NULL";
   final doubleType = "DOUBLE NOT NULL";

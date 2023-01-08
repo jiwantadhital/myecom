@@ -1,3 +1,5 @@
+import 'package:ecommerce/logic/address_bloc/bloc/address_bloc_bloc.dart';
+import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/main_pages/shipping_address/address_search.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
@@ -5,6 +7,7 @@ import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddAddress extends StatefulWidget {
   const AddAddress({super.key});
@@ -75,7 +78,31 @@ class _AddAddressState extends State<AddAddress> {
                 ),
               ),),
               SizedBox(height: 40,),
-             ival == "Address"? AuthenticationWidget(text: "Save",color: ColorManager.boxBorderGrey,textColor: Colors.white,):AuthenticationWidget(text: "Save",color: Colors.purple,textColor: Colors.white,)
+             ival == "Address"? AuthenticationWidget(text: "Save",color: ColorManager.boxBorderGrey,textColor: Colors.white,):
+             BlocConsumer<AddressBlocBloc,AddressBlocState>(
+              builder: (context,state){
+                if(state is AddressAdding){
+                  return AuthenticationWidget(text: "Saving...",color: Colors.purple[600]!,textColor: Colors.white,);
+                }
+               return InkWell(
+                onTap: (){
+                  print("ss");
+                  context.read<AddressBlocBloc>().add(AddToAddressEvent( address: ival, title: homeController.text));
+                },
+                child: AuthenticationWidget(text: "Save",color: Colors.purple,textColor: Colors.white,));
+              },
+              listener: (context,state){
+                if(state is AddressAdded){
+                  showCustomSnackbar(context, "Address Added successfully",
+                      color: Colors.green);
+                      Navigator.pop(context);
+                }
+                if(state is AddressError){
+                  showCustomSnackbar(context, state.message.toString(),
+                      color: Colors.green);
+                }
+              },
+             ),
           ],
         ),
       )),

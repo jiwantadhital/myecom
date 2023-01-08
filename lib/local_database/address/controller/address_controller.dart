@@ -12,13 +12,13 @@ Future deleteAddress(int id)async{
   await AddressDatabase.instance.delete(id);
 }
 
-Future createAddress(id,title,address)async{
-final theAddress = AddressModelDatabase(id: id, title: title, address: address);
+Future createAddress(title,address)async{
+final theAddress = AddressModelDatabase( title: title, address: address);
 await AddressDatabase.instance.create(theAddress);
 }
 
-Future updateAddress(id,title,address)async{
-final theAddress = AddressModelDatabase(id: id, title: title, address: address);
+Future updateAddress(title,address)async{
+final theAddress = AddressModelDatabase( title: title, address: address);
 await AddressDatabase.instance.update(theAddress);
 }
 
