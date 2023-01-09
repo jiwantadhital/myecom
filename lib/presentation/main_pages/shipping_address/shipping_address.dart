@@ -1,4 +1,7 @@
 import 'package:ecommerce/logic/address_bloc/bloc/address_bloc_bloc.dart';
+import 'package:ecommerce/logic/order/bloc/order_bloc.dart';
+import 'package:ecommerce/presentation/base/custom_snackbar.dart';
+import 'package:ecommerce/presentation/main_pages/payment_page/payment_page.dart';
 import 'package:ecommerce/presentation/main_pages/shipping_address/add_new_address.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
@@ -146,15 +149,57 @@ bool add=true;
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 10,right: 10),
-              height: AppHeight.h60,
-            width: MediaQuery.of(context).size.width*0.5,
-            decoration: BoxDecoration(
-              color: ColorManager.buttonColor,
-              borderRadius: BorderRadius.circular(10)
-            ),
-            child: Center(child: SmallText(text: "Continue",size: 18,weight: FontWeightManager.semibold,),),
+            GestureDetector(
+              onTap: (){
+          context.read<OrderBloc>().add(OrderPostEvent(
+         user_id: 1,
+         order_code: "asasas",
+         items: 3,
+         total_price: 2345,
+         discount: 10,
+         shipping_cost: 100,
+         order: "[1,2,3]",
+         address: "asassa",
+         order_status_id: 2,
+         payment_code: "asas",
+          created_by: 1),
+          );
+
+              },
+              child: BlocConsumer<OrderBloc,OrderState>(builder: ((context, state) {
+                if(state is OrderLoading){
+                  return Container(
+                margin: EdgeInsets.only(left: 10,right: 10),
+                height: AppHeight.h60,
+              width: MediaQuery.of(context).size.width*0.5,
+              decoration: BoxDecoration(
+                color: Colors.purpleAccent,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Center(child: SmallText(text: "Continue..",size: 18,weight: FontWeightManager.semibold,),),
+              );
+                }
+                return Container(
+                margin: EdgeInsets.only(left: 10,right: 10),
+                height: AppHeight.h60,
+              width: MediaQuery.of(context).size.width*0.5,
+              decoration: BoxDecoration(
+                color: ColorManager.buttonColor,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Center(child: SmallText(text: "Continue",size: 18,weight: FontWeightManager.semibold,),),
+              );
+              }), listener: ((context, state) {
+                if(state is OrderError){
+                  showCustomSnackbar(context, state.message,
+                      color: Colors.red);
+                }
+                if(state is OrderDone){
+                   Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return PaymentPage();
+                }));
+                }
+              }))
             ),
           ],
         ),

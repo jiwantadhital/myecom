@@ -10,6 +10,7 @@ import 'package:ecommerce/logic/address_bloc/bloc/address_bloc_bloc.dart';
 import 'package:ecommerce/logic/all_products/bloc/all_products_bloc.dart';
 import 'package:ecommerce/logic/bloc/login_bloc.dart';
 import 'package:ecommerce/logic/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce/logic/order/bloc/order_bloc.dart';
 import 'package:ecommerce/logic/user_detail/bloc/user_detail_bloc.dart';
 import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
@@ -50,6 +51,10 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => LoginBloc(
                 authRepository: AuthRepository(dataService: DataProvider())),
           ),
+          BlocProvider<OrderBloc>(
+            create: (BuildContext context) => OrderBloc(
+                productOrder: ProductOrder(orderProvider: OrderProvider())),
+          ),
           BlocProvider<AllProductsBloc>(
             create: (BuildContext context) => AllProductsBloc(
               productRepository: ProductRepository(productProvider: ProductProvider()))..add(GetProducts())
@@ -83,9 +88,8 @@ class MyApp extends StatelessWidget {
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: Colors.black.withOpacity(0)),
         ),
-        home: PaymentPage(),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        //   initialRoute: Routes.splashRoute,
+        onGenerateRoute: RouteGenerator.getRoute,
+          initialRoute: Routes.splashRoute,
       );
   })
     );

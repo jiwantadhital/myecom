@@ -33,7 +33,7 @@ class UserAuthenticated{
   Future<http.Response> getProduct({required String backUrl}) async {
     http.Response response = await http
         .get(
-      Uri.parse(homeUrl+backUrl),
+      Uri.parse(testUrl+backUrl),
       //Required
       headers: <String, String>{
         'Content-Type': 'application/json',

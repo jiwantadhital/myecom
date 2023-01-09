@@ -1,3 +1,4 @@
+import 'package:ecommerce/logic/order/bloc/order_bloc.dart';
 import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
@@ -6,10 +7,11 @@ import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 class KhaltiPay extends StatefulWidget {
-  const KhaltiPay({super.key});
+ 
 
   @override
   State<KhaltiPay> createState() => _KhaltiPayState();
@@ -41,6 +43,7 @@ class _KhaltiPayState extends State<KhaltiPay> {
             SizedBox(height: 20,),
             GestureDetector(
               onTap: (){
+        
                 KhaltiScope.of(context).pay(
       config: PaymentConfig(
         amount: getAmt(),
@@ -58,6 +61,7 @@ class _KhaltiPayState extends State<KhaltiPay> {
         PaymentPreference.connectIPS,
       ],
       onSuccess: (success){
+       
         showCustomSnackbar(context, "Payment SuccessFul",
                       color: Colors.green);
       },
@@ -68,7 +72,14 @@ class _KhaltiPayState extends State<KhaltiPay> {
       onCancel: (){},
     );
               },
-              child: Container(
+              child: BlocConsumer<OrderBloc,OrderState>(builder: (context,state){
+                  if(state is OrderLoading){
+                    return Center(child:CircularProgressIndicator());
+                  }
+                  if(state is OrderDone){
+                    return Center(child: Text("success"),);
+                  }
+                 return Container(
                 margin: EdgeInsets.only(left: 10,right: 10),
                 height: AppHeight.h60,
               width: MediaQuery.of(context).size.width*0.5,
@@ -77,7 +88,15 @@ class _KhaltiPayState extends State<KhaltiPay> {
                 borderRadius: BorderRadius.circular(10)
               ),
               child: Center(child: SmallText(text: "Pay With Khalti",size: 18,weight: FontWeightManager.semibold,),),
-              ),
+              );
+              }, listener: (context,state){
+                if(state is OrderDone){
+                  print("done");
+                }
+                if(state is OrderError){
+                  print(state.message);
+                }
+              })
             ),
           ],
         ),
