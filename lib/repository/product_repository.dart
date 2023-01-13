@@ -50,6 +50,7 @@ class  UserDetailsRepo{
     var response =await userAuthenticated.getProduct(backUrl: "/api/user/profile");
     if(response.statusCode==200){
       final userData = jsonDecode(response.body);
+      print(response.body);
       return UserModel.fromJson(userData);
     }
     else{

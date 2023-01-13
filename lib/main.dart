@@ -14,6 +14,8 @@ import 'package:ecommerce/logic/order/bloc/order_bloc.dart';
 import 'package:ecommerce/logic/user_detail/bloc/user_detail_bloc.dart';
 import 'package:ecommerce/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:ecommerce/presentation/main_pages/home_pages/home_page.dart';
+import 'package:ecommerce/presentation/main_pages/shipping_address/add_new_address.dart';
+import 'package:ecommerce/presentation/main_pages/shipping_address/maps/mark_map.dart';
 import 'package:ecommerce/presentation/splash/splash_screen.dart';
 import 'package:ecommerce/repository/auth_repository.dart';
 import 'package:ecommerce/repository/product_repository.dart';
@@ -88,8 +90,9 @@ class MyApp extends StatelessWidget {
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: Colors.black.withOpacity(0)),
         ),
-        onGenerateRoute: RouteGenerator.getRoute,
-          initialRoute: Routes.splashRoute,
+        // onGenerateRoute: RouteGenerator.getRoute,
+        //   initialRoute: Routes.splashRoute,
+        home: MarkMap(),
       );
   })
     );

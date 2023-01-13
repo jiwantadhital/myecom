@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 
 class ProductProvider{
-    var testUrl = 'http://127.0.0.1:8000';
+    var testUrl = 'http://10.0.2.2:8000';
     var homeUrl = "http://192.168.18.62:8000";
     var mockUrl = "https://mocki.io/v1/ea9da66f-d360-4513-8068-d91baf56792f";
   Future<http.Response> getProduct(backUrl) async {
@@ -27,7 +27,7 @@ class ProductProvider{
 
 //data after authentication
 class UserAuthenticated{
-    var testUrl = 'http://127.0.0.1:8000';
+    var testUrl = 'http://10.0.2.2:8000';
     var homeUrl = "http://192.168.18.62:8000";
     var mockUrl = "https://mocki.io/v1/ea9da66f-d360-4513-8068-d91baf56792f";
   Future<http.Response> getProduct({required String backUrl}) async {

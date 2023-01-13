@@ -1,6 +1,7 @@
 import 'package:ecommerce/logic/address_bloc/bloc/address_bloc_bloc.dart';
 import 'package:ecommerce/presentation/base/custom_snackbar.dart';
 import 'package:ecommerce/presentation/main_pages/shipping_address/address_search.dart';
+import 'package:ecommerce/presentation/main_pages/shipping_address/maps/mark_map.dart';
 import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
@@ -33,7 +34,15 @@ class _AddAddressState extends State<AddAddress> {
        backgroundColor: Colors.white.withOpacity(0.5),
        actions: [
         Padding(padding: EdgeInsets.only(right: 20),
-        child: Icon(Icons.map_rounded),
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context){
+                return MarkMap();
+              }
+            ));
+          },
+          child: Icon(Icons.map_rounded)),
         )
        ],
       ),

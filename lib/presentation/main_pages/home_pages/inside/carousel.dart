@@ -38,8 +38,8 @@ class _CarouselPartState extends State<CarouselPart> {
       autoPlay: true,
       autoPlayInterval: Duration(seconds: 3),
       autoPlayAnimationDuration: Duration(milliseconds: 800),
-      autoPlayCurve: Curves.ease,
-      enlargeCenterPage: true,
+      // autoPlayCurve: Curves.ease,
+      // enlargeCenterPage: true,
       scrollDirection: Axis.horizontal,
               ),
           itemCount: 3,
@@ -48,10 +48,9 @@ class _CarouselPartState extends State<CarouselPart> {
              height: 160,
              width: double.maxFinite,
              decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.s12),
               image: DecorationImage(
                 image: NetworkImage(
-                  "https://images.pexels.com/photos/3965548/pexels-photo-3965548.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                  "https://www.sastodeal.com/media/weltpixel/owlcarouselslider/images/g/r/group_3_1.jpg",
                   ),
                   fit: BoxFit.cover
                   ),
@@ -62,13 +61,13 @@ class _CarouselPartState extends State<CarouselPart> {
             Positioned(
     // top: size.width < 365? MediaQuery.of(context).size.height*0.20:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
     left: MediaQuery.of(context).size.width*0.35,
-    top: MediaQuery.of(context).size.height*0.18,
+    top: MediaQuery.of(context).size.height*0.22,
     child:  DotsIndicator(
         dotsCount: counts,
           position: currentcount.toDouble(),
         decorator: DotsDecorator(
-          activeColor: ColorManager.boxText,
-          color: ColorManager.lightGrey,
+          activeColor: Colors.purple,
+          color: ColorManager.white,
           size: const Size.square(8.0),
           activeSize: const Size(20.0, 9.0),
           activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),

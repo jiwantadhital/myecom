@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: ColorManager.textFieldColor.withOpacity(0.2),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Column(
           children: [
             Container(
@@ -66,51 +65,51 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(height: AppHeight.h20,),
-               Container(
-            padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.white
-                    ),
-                    child:   TextField(
-                      cursorColor: Color.fromRGBO(255, 141, 13, 1),
-                      decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.search,
-                          color: ColorManager.primary,
-                          size: IconSize.i25,
-                          ),
-                          border: InputBorder.none,
-                          hintText: "Search",
-                          hintStyle: TextStyle(color: Colors.black26,fontSize: 10)
-                      ),
-                      // onChanged: _onSearchTextChanged,
-                    ),
-                  ),
-                ),
-                SizedBox(width: AppWidth.w12,),
-                Container(
-                  width: AppWidth.w50,
-                  height: AppHeight.h50,
-                  decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  color: ColorManager.white,
-                  ),
-                  child:  Icon(
-                    Icons.list,
-                    color: ColorManager.darkGrey,
-                    ),
-                ),
-              ],
-            ),
-          ),
+          // SizedBox(height: AppHeight.h20,),
+          //      Container(
+          //   padding: EdgeInsets.only(left: AppPadding.p10,right: AppPadding.p20),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Expanded(
+          //         child: Container(
+          //           padding: EdgeInsets.symmetric(horizontal: 25.0),
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(12.0),
+          //             color: Colors.white
+          //           ),
+          //           child:   TextField(
+          //             cursorColor: Color.fromRGBO(255, 141, 13, 1),
+          //             decoration: InputDecoration(
+          //               icon: Icon(
+          //                 Icons.search,
+          //                 color: ColorManager.primary,
+          //                 size: IconSize.i25,
+          //                 ),
+          //                 border: InputBorder.none,
+          //                 hintText: "Search",
+          //                 hintStyle: TextStyle(color: Colors.black26,fontSize: 10)
+          //             ),
+          //             // onChanged: _onSearchTextChanged,
+          //           ),
+          //         ),
+          //       ),
+          //       SizedBox(width: AppWidth.w12,),
+          //       Container(
+          //         width: AppWidth.w50,
+          //         height: AppHeight.h50,
+          //         decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(30.0),
+          //         color: ColorManager.white,
+          //         ),
+          //         child:  Icon(
+          //           Icons.list,
+          //           color: ColorManager.darkGrey,
+          //           ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           SizedBox(height: AppHeight.h10,),
           Expanded(
             child: SingleChildScrollView(

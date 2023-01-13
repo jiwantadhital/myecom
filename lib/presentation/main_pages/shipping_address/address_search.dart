@@ -72,7 +72,16 @@ class _AddressSearchState extends State<AddressSearch> {
           
           ),
           SizedBox(height: 10,),
-         isLoading == true? Center(child: Padding(
+       auto.isEmpty?Center(child: Padding(
+         padding: const EdgeInsets.only(top: 100),
+         child: Container(
+          height: 200,
+          width: 200,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage("assets/images/search.png"))
+          ),
+         ),
+       )):  isLoading == true? Center(child: Padding(
            padding: const EdgeInsets.only(top: 10,bottom: 5),
            child: SpinKitFadingCircle(
               color: Colors.purple,
