@@ -22,6 +22,7 @@ class _CarouselPartState extends State<CarouselPart> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Stack(
+      alignment: Alignment.bottomCenter,
       children:[CarouselSlider.builder(
               options: CarouselOptions(
                onPageChanged: (index,reason){
@@ -30,7 +31,7 @@ class _CarouselPartState extends State<CarouselPart> {
                
               });
           },
-                aspectRatio: 16/8,
+                aspectRatio: 16/7,
       viewportFraction: 1,
       initialPage: 0,
       enableInfiniteScroll: true,
@@ -42,10 +43,10 @@ class _CarouselPartState extends State<CarouselPart> {
       // enlargeCenterPage: true,
       scrollDirection: Axis.horizontal,
               ),
-          itemCount: 3,
+          itemCount: counts,
           itemBuilder: (BuildContext context,int index, int pageViewIndex) =>
            Container(
-             height: 160,
+             height: 140,
              width: double.maxFinite,
              decoration: BoxDecoration(
               image: DecorationImage(
@@ -59,17 +60,17 @@ class _CarouselPartState extends State<CarouselPart> {
              ),
           ),
             Positioned(
-    // top: size.width < 365? MediaQuery.of(context).size.height*0.20:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
-    left: MediaQuery.of(context).size.width*0.35,
-    top: MediaQuery.of(context).size.height*0.22,
+    // // top: size.width < 365? MediaQuery.of(context).size.height*0.20:size.width<400?MediaQuery.of(context).size.height*0.15:MediaQuery.of(context).size.height*0.22,
+    // left: MediaQuery.of(context).size.width*0.35,
+    // top: MediaQuery.of(context).size.height*0.22,
     child:  DotsIndicator(
         dotsCount: counts,
           position: currentcount.toDouble(),
         decorator: DotsDecorator(
           activeColor: Colors.purple,
           color: ColorManager.white,
-          size: const Size.square(8.0),
-          activeSize: const Size(20.0, 9.0),
+          size: const Size.square(4.0),
+          activeSize: const Size(20.0, 4.0),
           activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         ),
       ),
@@ -101,7 +102,6 @@ class SliderPage extends StatelessWidget {
           itemCount: 3,
           itemBuilder: (BuildContext context,int index, int pageViewIndex) =>
            Container(
-            margin: EdgeInsets.only(top: 10),
              height: 160,
              width: double.maxFinite,
              decoration: BoxDecoration(

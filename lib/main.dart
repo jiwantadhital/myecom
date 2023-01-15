@@ -90,9 +90,9 @@ class MyApp extends StatelessWidget {
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: Colors.black.withOpacity(0)),
         ),
-        // onGenerateRoute: RouteGenerator.getRoute,
-        //   initialRoute: Routes.splashRoute,
-        home: MarkMap(),
+        onGenerateRoute: RouteGenerator.getRoute,
+          initialRoute: Routes.splashRoute,
+        // home: AddAddress(),
       );
   })
     );

@@ -13,7 +13,7 @@ class DataProvider{
       }) async {
     http.Response response = await http
         .post(
-      Uri.parse('$testUrl/api/login'),
+      Uri.parse('$homeUrl/api/login'),
       //Required
       headers: <String, String>{
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ class OrderProvider{
       }) async {
     http.Response response = await http
         .post(
-      Uri.parse('$testUrl/api/order'),
+      Uri.parse('$homeUrl/api/order'),
       //Required
       headers: <String, String>{
         'Content-Type': 'application/json',

@@ -6,8 +6,6 @@ import 'package:ecommerce/presentation/resources/colors.dart';
 import 'package:ecommerce/presentation/resources/fonts.dart';
 import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddAddress extends StatefulWidget {
@@ -35,12 +33,17 @@ class _AddAddressState extends State<AddAddress> {
        actions: [
         Padding(padding: EdgeInsets.only(right: 20),
         child: GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(
+          onTap: ()async{
+           String? test = await Navigator.push(context, MaterialPageRoute(
               builder: (context){
                 return MarkMap();
               }
             ));
+            setState(() {
+                     this.ival = test?? 'Address';
+                     colorManager = ival == "Address"?ColorManager.boxText.withOpacity(0.5): Colors.black;
+                     }
+                   );
           },
           child: Icon(Icons.map_rounded)),
         )
@@ -54,15 +57,12 @@ class _AddAddressState extends State<AddAddress> {
             SizedBox(height: 20,),
             GestureDetector(
               onTap: () async{
-                String? test = await showModalBottomSheet<String>(
-                          isScrollControlled: true,
-                          enableDrag: true,
-                    context: context,
-                    builder: (BuildContext context) {
-                    return AddressSearch();
-                  },
-                    );
-                   setState(() {
+                  String? test = await Navigator.push(context, MaterialPageRoute(
+              builder: (context){
+                return MarkMap();
+              }
+            ));
+            setState(() {
                      this.ival = test?? 'Address';
                      colorManager = ival == "Address"?ColorManager.boxText.withOpacity(0.5): Colors.black;
                      }

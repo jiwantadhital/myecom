@@ -27,12 +27,11 @@ int changedIndex = 0;
 bool add=true;
 @override
   void initState() {
-    context.read<AddressBlocBloc>()..add(LoadAddressEvent());
+           context.read<AddressBlocBloc>().add(LoadAddressEvent());
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-        context.read<AddressBlocBloc>().add(LoadAddressEvent());
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -124,7 +123,7 @@ bool add=true;
                       return AddAddress();
                     })).whenComplete(() {
                       setState(() {
-                        print("done");
+                       context.read<AddressBlocBloc>().add(LoadAddressEvent());
                       });
                     });
                   },

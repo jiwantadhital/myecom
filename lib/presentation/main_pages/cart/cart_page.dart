@@ -41,7 +41,22 @@ class _CartPageState extends State<CartPage> {
         margin: EdgeInsets.all(10),
         child: BlocConsumer<CartBloc,CartState>(builder: (context,state){
           if(state is CartLoaded){
-           return ListView.builder(
+          return state.cartModelDatabase.isEmpty?
+          Center(
+            child: Column(
+              children: [
+                Container(
+                  height: 250,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage("assets/images/empty_cart.png"))
+                  ),
+                ),
+                SmallText(text: "Your Cart is Empty",color: Colors.black,weight: FontWeight.w600,)
+              ],
+            ),
+          ):
+           ListView.builder(
           itemCount: state.cartModelDatabase.length,
           itemBuilder: (context,index){
             return Container(

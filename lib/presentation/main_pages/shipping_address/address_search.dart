@@ -6,6 +6,7 @@ import 'package:ecommerce/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class AddressSearch extends StatefulWidget {
   const AddressSearch({super.key});
@@ -15,6 +16,7 @@ class AddressSearch extends StatefulWidget {
 }
 
 class _AddressSearchState extends State<AddressSearch> {
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: apiKey);
   bool isLoading = false;
   List<AutocompletePrediction> auto = [];
   var searchController = TextEditingController();
@@ -92,7 +94,7 @@ class _AddressSearchState extends State<AddressSearch> {
             itemBuilder: (context,index){
             return GestureDetector(
               onTap: (){
-                Navigator.pop(context,auto[index].description);
+                Navigator.pop(context,auto[index].placeId);
               },
               child: Container(
                 height: AppHeight.h60,
